@@ -1,0 +1,41 @@
+@charset "utf-8";
+html, body{
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  background-image: url("img/bg.jpg");
+  position: fixed;
+  heigth: 100%;
+  width: 100%;
+  padding-top: 1%;
+  padding-left: 1%;
+  color: #333:
+}
+#article{
+        background-color: rgba(255,255,255,0.66);
+	font-size: 12px;
+        position: fixed;
+	left: 20%;
+	right:20%;
+
+}
+#map{
+        border: 8px solid #D7D7D7;
+        height: 65%;
+        width: 90%;
+        left: 7.5%;
+}
+
+#footer{
+        z-index: 2;
+        background-color: rgba(255,255,255,0.66);
+        font-size: 8px;
+        position: fixed;
+        left: 20%;
+        top: 90%;
+}

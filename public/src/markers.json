@@ -1,0 +1,10 @@
+markers = [
+
+{"lat" : "49.5", "lng" : "0.0925", "icon" : "1", "title" : "Allied Foto 1", "img" : "", "article" : ""},
+{"lat" : "49.4", "lng" : "0.0825", "icon" : "2", "title" : "Axes Foto 1", "img" : "", "article" : ""},
+{"lat" : "49.3", "lng" : "0.0725", "icon" : "3", "title" : "Allied video 1", "img" : "", "article" : ""},
+{"lat" : "49.2", "lng" : "0.0625", "icon" : "4", "title" : "Axes video 1", "img" : "", "article" : ""},
+{"lat" : "49.1", "lng" : "0.0525", "icon" : "1", "title" : "Allied Foto 2", "img" : "", "article" : ""},
+{"lat" : "49.6", "lng" : "0.0425", "icon" : "4", "title" : "Axes video 2", "img" : "", "article" : ""}
+
+];	
