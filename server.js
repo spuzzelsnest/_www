@@ -42,7 +42,7 @@ var server = https.createServer(options, (req, res) => {
 	var type = mime[path.extname(file).slice(1)] || 'text/plain';
 	var s = fs.createReadStream(file);
 	s.on('open', () => {
-		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Content-Type', type);
 		var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		console.log(ip);
 		s.pipe(res);
