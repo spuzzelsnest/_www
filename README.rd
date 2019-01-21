@@ -1,15 +1,19 @@
-. Make sure NPM is installed
- apt-get install npm
+# Node JS server with Leaflet POI app
 
-. run bin/cert.sh
+Node JS https webserver with MIME type support. 
+Added a rework of a Google maps POI website as an example, this time based on the Leaflet API.
+
+## Installation
+ Make sure NPM is installed
+
+
+- run bin/cert.sh to create the HTTPS certificates
+```
   cd bin && ./cert.sh
+```
+- Set the secret for the certifications (also in server.js)
 
-. Set the secret for the certifications (also in server.js)
-
-. create Public directory, this will function as the Root dir for the webserver. Here goes your index file.
-
-  mkdir public
-
-. run the server
- ./server.js
-
+- run the server
+```
+  node server.js
+```
