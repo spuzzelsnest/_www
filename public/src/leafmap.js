@@ -5,7 +5,7 @@ function loadMap(){
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
         var LeafIcon = L.Icon.extend({
                 options: {
-                        iconSize:     [20, 20]
+                        iconSize:     [20, 25]
               }
         });
 
@@ -20,6 +20,7 @@ function loadMap(){
 		showCoverageOnHover: false,
 		zoomToBoundsOnClick: true,
 		removeOutsideVisibleBounds:true,
+		maxClusterRadius: 20,
 		spiderLegPolylineOptions: {
 				weight: 1.5,
 				color: '#222',
@@ -29,8 +30,8 @@ function loadMap(){
 	for(var i in markers){
      		var lat = markers[i].lat;
      		var lng = markers[i].lng;
-		var dif  = markers[i].icon;
-		var title = markers[i].title;
+		var dif  = markers[i].typeId;
+		var title = markers[i].shortdesc;
 
 		var marker = L.marker([lat, lng], {icon: iconType[dif]}).bindPopup(title);
 		cluster.addLayer(marker);
