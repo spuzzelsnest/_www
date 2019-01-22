@@ -53,9 +53,9 @@ function loadMap(){
 			var customPopup = "<big><u>"+title+" "+ place+" ("+country+")</u></big><br><center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
 		}
 
-
 		var marker = L.marker([lat, lng], {icon: iconType[dif]}).bindPopup(customPopup,customOptions);
 		cluster.addLayer(marker);
 	}
 	map.addLayer(cluster);
+
 }
