@@ -13,14 +13,27 @@ function loadMap(){
                 iconType['1'] = new LeafIcon({iconUrl: '/img/Afoto.png'});
                 iconType['2'] = new LeafIcon({iconUrl: '/img/Xfoto.png'});
                 iconType['3'] = new LeafIcon({iconUrl: '/img/Avideo.png'});
-                iconType['4'] = new LeafIcon({iconUrl: '/img/Xvideo.png'});
-         
+                iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
+
+	var cluster = L.markerClusterGroup({
+		spiderfyOnMaxZoom: false,
+		showCoverageOnHover: false,
+		zoomToBoundsOnClick: true,
+		removeOutsideVisibleBounds:true,
+		spiderLegPolylineOptions: {
+				weight: 1.5,
+				color: '#222',
+				 opacity: 0.5
+		}
+	});
 	for(var i in markers){
      		var lat = markers[i].lat;
      		var lng = markers[i].lng;
 		var dif  = markers[i].icon;
 		var title = markers[i].title;
-	
-		L.marker([lat, lng], {icon: iconType[dif]}).bindPopup(title).addTo(map);
+
+		var marker = L.marker([lat, lng], {icon: iconType[dif]}).bindPopup(title);
+		cluster.addLayer(marker);
 	}
+	map.addLayer(cluster);
 }
