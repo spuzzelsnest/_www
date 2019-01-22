@@ -16,15 +16,18 @@ body{
   padding-left: 1%;
   color: #333:
 }
+
 #article{
+	z-index: 2;
         background-color: rgba(255,255,255,0.66);
 	font-size: 12px;
         position: fixed;
 	left: 20%;
 	right:20%;
-
 }
+
 #map{
+	z-index: 1;
         border: 8px solid #D7D7D7;
         height: 65%;
         width: 75%;
@@ -38,4 +41,10 @@ body{
         position: fixed;
         left: 20%;
         top: 90%;
+}
+
+.mapPopUp{
+	z-index: 3;
+    	position: fixed;
+    	overflow:auto;
 }

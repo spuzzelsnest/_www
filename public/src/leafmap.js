@@ -16,7 +16,7 @@ function loadMap(){
                 iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
 
 	var cluster = L.markerClusterGroup({
-		spiderfyOnMaxZoom: false,
+		spiderfyOnMaxZoom: true,
 		showCoverageOnHover: false,
 		zoomToBoundsOnClick: true,
 		removeOutsideVisibleBounds:true,
@@ -24,14 +24,13 @@ function loadMap(){
 		spiderLegPolylineOptions: {
 				weight: 1.5,
 				color: '#222',
-				 opacity: 0.5
+				opacity: 0.5
 		}
 	});
 
 	var customOptions ={
-	        'maxWidth': '500',
-		'overflow-y': 'scroll',
-       		'className' : 'custom'
+	        'maxWidth': '600',
+       		'className' : 'mapPopUp'
         }
 
 	for(var i in markers){
@@ -40,18 +39,18 @@ function loadMap(){
 		var dif  = markers[i].typeId;
 
 		var title = markers[i].shortdesc;
-		var img = markers[i].name+'.jpg';
+		var img = markers[i].name;
 		var place = markers[i].place;
 		var country = markers[i].country;
 		var date = markers[i].date;
 		var info = markers[i].info;
 		
-		if (dif < 2){
+		if (dif < 3){
 
-			var customPopup = "<b><u>"+title+" "+place+" ("+country+")</u></b><br/><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+ info;
+			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><br/><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+ info;
 		}else{
 	
-			var customPopup = "<b><u>"+title+" "+ place+" ("+country+")</u></b><br><center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
+			var customPopup = "<big><u>"+title+" "+ place+" ("+country+")</u></big><br><center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
 		}
 
 
