@@ -36,7 +36,7 @@ function loadMap(){
 	for(var i in markers){
      		var lat = markers[i].lat;
      		var lng = markers[i].lng;
-		var dif  = markers[i].typeId;
+		var dif = markers[i].typeId;
 
 		var title = markers[i].shortdesc;
 		var img = markers[i].name;
@@ -53,9 +53,19 @@ function loadMap(){
 			var customPopup = "<big><u>"+title+" "+ place+" ("+country+")</u></big><br><center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
 		}
 
-		var marker = L.marker([lat, lng], {icon: iconType[dif]}).bindPopup(customPopup,customOptions);
+		var marker = L.marker([lat, lng], {icon: iconType[dif]});
+		marker.on('click', sideDiv);
 		cluster.addLayer(marker);
+
 	}
 	map.addLayer(cluster);
+	
+}
+
+function sideDiv(e) {
+
+	var markerInfo = document.getElementById('markerInfo');
+
+	document.getElementById('markerInfo').textContent=this.getLatLng();
 
 }
