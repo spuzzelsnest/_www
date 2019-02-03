@@ -33,21 +33,20 @@ body{
   right: 0;
 }
 
-
 #article{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);
   font-size: 12px;
   position: fixed;
-  left: 20%;
+  left: 10%;
 }
 
 #map{
   border: 6px solid #D7D7D7;
   position: fixed;
   height: 79%;
-  width: 60%;
-  left: 7.5%;;
+  width: 55%;
+  left: 2.5%;
 }
 
 #markerInfo{
@@ -56,9 +55,9 @@ body{
   padding-top: 12px;
   padding-left: 12px;
   position: fixed;
-  width: 28%;
-  height: 67.5%;
-  right: 2%;
+  width: 38%;
+  height: 67.8%;
+  right:  2.5%;
   overflow: auto;
 }
 
