@@ -1,5 +1,6 @@
 function loadMap() {
 
+    
 	var map = L.map('map').setView([50.1, 6], 6);
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
@@ -11,10 +12,8 @@ function loadMap() {
 
 	 var iconType = {};
 
-    iconType['1'] = new LeafIcon({iconUrl: '/img/Afoto.png'});
-                iconType['2'] = new LeafIcon({iconUrl: '/img/Xfoto.png'});
-                iconType['3'] = new LeafIcon({iconUrl: '/img/Avideo.png'});
-                iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
+    iconType['0'] = new LeafIcon({iconUrl: '/img/point01.png'});
+
 
 	var cluster = L.markerClusterGroup({
 
@@ -32,26 +31,22 @@ function loadMap() {
 
 	for(var i in markers){
 
-        var lat = markers[i].lat;
-        var lng = markers[i].lng;
-		var dif = markers[i].typeId;
-		var title = markers[i].shortdesc;
-		var img = markers[i].name;
-		var place = markers[i].place;
-		var country = markers[i].country;
-		var date = markers[i].date;
+        var lat = markers[i].Lat;
+        var lng = markers[i].Lng;
+		var dif = markers[i].Verified;
+		var title = markers[i].Name;
+        var address = markers[i].Address;
+        var zcode = markers[i].Zip_Code;
+        var country = markers[i].Country;
+        var phone = markers[i].Phone;
+		var place = markers[i].City;
 		var info = markers[i].info;
-        
-		if (dif < 3){
 
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+ info;
-		}else{
-	
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
-		}
-
+        var code = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><br>"+ address;
+		
 		var marker = L.marker([lat, lng], {icon: iconType[dif]});
-        marker.html = customPopup;
+        marker.code = code;
+        marker.title = title;
         marker.on('click', sideDiv);
 		cluster.addLayer(marker);
 	}
@@ -59,7 +54,11 @@ function loadMap() {
 }
 
 function sideDiv(e){
+    
       
-	var text= this.html;
-    document.getElementById('markerInfo').innerHTML = text;   
-}
+	var text= this.code;
+    var title = this.title;
+    document.getElementById('markerInfo').innerHTML = text;
+    
+    document.getElementById('markerInfo').innerHTML += "<input onclick='responsiveVoice.speak(\"+title+\");' type='button' value='🔊 Play' />"
+} 

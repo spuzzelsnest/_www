@@ -1,0 +1,5 @@
+cert/
+node_modules/
+public/data/
+public/img/
+package-lock.json
