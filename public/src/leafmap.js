@@ -4,17 +4,16 @@ function loadMap() {
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
         var LeafIcon = L.Icon.extend({
-                options: {
-                        iconSize:     [20, 25]
+            options: {
+                    iconSize:[20, 25]
               }
         });
 
-	 var iconType = {};
-
-    iconType['1'] = new LeafIcon({iconUrl: '/img/Afoto.png'});
-                iconType['2'] = new LeafIcon({iconUrl: '/img/Xfoto.png'});
-                iconType['3'] = new LeafIcon({iconUrl: '/img/Avideo.png'});
-                iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
+    var iconType = {};
+        iconType['1'] = new LeafIcon({iconUrl: '/img/Afoto.png'});
+        iconType['2'] = new LeafIcon({iconUrl: '/img/Xfoto.png'});
+        iconType['3'] = new LeafIcon({iconUrl: '/img/Avideo.png'});
+        iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
 
 	var cluster = L.markerClusterGroup({
 
@@ -59,7 +58,6 @@ function loadMap() {
 }
 
 function sideDiv(e){
-      
 	var text= this.html;
     document.getElementById('markerInfo').innerHTML = text;   
 }
