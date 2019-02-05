@@ -69,12 +69,19 @@ function read(title){
 
 function search(){
     
-    var term = document.getElementsByClassName("searchField")[0].value;
+    var term = document.getElementsByClassName('searchField')[0].value;
+    var regex = new RegExp("/\b"+ term +"\b?", 'g');
     var result = [];
     if (term == ''){
         document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
     }else{
-        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br><br> RESULT For: "+term;
-        document.getElementById('markerInfo').innerHTML = "<u>Search Result</u>";
+        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><p>RESULT For: "+term;
+        
+        if (markers.Name.match(regex)){
+            document.getElementById('markerInfo').innerHTML = "<li class='list-group-item link-class'>"+markers[i].Name+" | <span class='text-muted'>"+markers[i].Address+"</span></li>";
+        }else{
+                document.getElementById('markerInfo').innerHTML = "<u><b>No Result Found</u>";
+          }  
     }
 }
+
