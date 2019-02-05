@@ -60,6 +60,7 @@ body{
 
 #markerInfo{
   z-index: 3;
+  font-size: 12px;
   background-color: rgba(255,255,255,0.66);
   padding-top: 12px;
   padding-left: 12px;
@@ -68,6 +69,12 @@ body{
   height: 79%;
   right:  2.5%;
   overflow: auto;
+}
+#speakButton{
+  z-index:4;
+  font-size: 11px;
+  position: fixed;
+  right: 5%;
 }
 
 #footer{
@@ -79,4 +86,16 @@ body{
   left: 10%;
   right: 10%;
   bottom: 1%;
+}
+legenda{
+  z-index: 2;
+  background-color: rgba(255,255,255,0.66);
+  padding: 15px;
+  position: fixed;
+  bottom: 15%;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  left: 29%;
 }
