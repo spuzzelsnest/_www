@@ -6,13 +6,12 @@ function loadMap() {
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
         var LeafIcon = L.Icon.extend({
                 options: {
-                        iconSize:     [20, 25]
+                    iconSize:[20, 25]
               }
         });
 
-	 var iconType = {};
-
-    iconType['0'] = new LeafIcon({iconUrl: '/img/point01.png'});
+    var iconType = {};
+        iconType['0'] = new LeafIcon({iconUrl: '/img/point01.png'});
 
 
 	var cluster = L.markerClusterGroup({
@@ -54,11 +53,14 @@ function loadMap() {
 }
 
 function sideDiv(e){
-    
-      
+
 	var text= this.code;
     var title = this.title;
     document.getElementById('markerInfo').innerHTML = text;
-    
-    document.getElementById('markerInfo').innerHTML += "<input onclick='responsiveVoice.speak(\"+title+\");' type='button' value='🔊 Play' />"
-} 
+    document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
+}
+
+function read(title){
+    var text = title;
+    responsiveVoice.speak(text);
+}
