@@ -19,8 +19,8 @@ body{
 
 .split {
   z-index: 1;
-  top: 15%
-  higth: 100%;
+  top: 15%;
+  height: 100%;
   width: 30%;
   position: fixed;
 }
