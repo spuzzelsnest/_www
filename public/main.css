@@ -18,8 +18,8 @@ body{
 
 .split {
   z-index: 1;
-  top: 15%
-  higth: 100%;
+  top: 15%;
+  height: 100%;
   width: 30%;
   position: fixed;
 }
@@ -31,7 +31,11 @@ body{
 .right {
   right: 0;
 }
-
+#searchBox{
+    z-index: 2;
+    position: fixed; 
+    
+}
 #article{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);

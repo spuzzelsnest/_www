@@ -1,5 +1,4 @@
 function loadMap() {
-
     
 	var map = L.map('map').setView([50.1, 6], 6);
 
@@ -43,11 +42,8 @@ function loadMap() {
         var lng = markers[i].Lng;
 		var dif = markers[i].Verified;
         
-        
         var title = name+" - "+city;
-        
         var code = "<big><u>"+title+" ("+country+")</u></big><p><center><br>"+ address;
-		
 		var marker = L.marker([lat, lng], {icon: iconType[dif]});
         marker.code = code;
         marker.title = title.replace("'","&#39;");
@@ -61,6 +57,7 @@ function sideDiv(e){
 
 	var text= this.code;
     var title = this.title;
+    document.getElementById('title').innerHTML = "<h1><u>MarkerInfo</u></h1>";
     document.getElementById('markerInfo').innerHTML = text;
     document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
 }
@@ -68,4 +65,16 @@ function sideDiv(e){
 function read(title){
     var text = title;
     responsiveVoice.speak(text);
+}
+
+function search(){
+    
+    var term = document.getElementsByClassName("searchField")[0].value;
+    var result = [];
+    if (term == ''){
+        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
+    }else{
+        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br><br> RESULT For: "+term;
+        document.getElementById('markerInfo').innerHTML = "<u>Search Result</u>";
+    }
 }
