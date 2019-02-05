@@ -50,6 +50,7 @@ function loadMap() {
 
 		var marker = L.marker([lat, lng], {icon: iconType[dif]});
         marker.html = customPopup;
+        marker.info = info.replace("'","&#39;");
         marker.on('click', sideDiv);
 		cluster.addLayer(marker);
 	}
@@ -58,5 +59,13 @@ function loadMap() {
 
 function sideDiv(e){
 	var text= this.html;
-    document.getElementById('markerInfo').innerHTML = text;   
+    var info = this.info;
+    document.getElementById('markerInfo').innerHTML = text;
+    document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+info+"`);'>Read Me</button>";
+}
+
+
+function read(info){
+    var text = info;
+    responsiveVoice.speak(text);
 }
