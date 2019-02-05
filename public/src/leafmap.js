@@ -61,9 +61,11 @@ function sideDiv(e){
 	var text= this.html;
     var info = this.info;
     document.getElementById('markerInfo').innerHTML = text;
+    if (info !== ''){
     document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+info+"`);'>Read Me</button>";
-}
 
+    }
+}
 
 function read(info){
     var text = info;
