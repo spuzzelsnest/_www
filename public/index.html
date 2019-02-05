@@ -2,39 +2,40 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Point of Interest Map</title>
+  <title>WW2WEB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" type="text/css" href="/main.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
   <script type="text/javascript" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
  
-  <link rel="stylesheet" type="text/css" href="/Markercluster.css" />
-  <link rel="stylesheet" type="text/css" href="/Markercluster.default.css" /> 
+  <link rel="stylesheet" type="text/css" href="/css/Markercluster.css" />
+  <link rel="stylesheet" type="text/css" href="/css/Markercluster.default.css" /> 
   <script type="text/javascript" src="/src/leaflet.markercluster-src.js"></script>
   
   <script type="text/javascript" src="/src/leafmap.js"></script>
   <script type="text/javascript" src="/data/markers.json"></script>
 </head>
   <body onload="loadMap()">
-<div>
-      <u><big>PoI Map</big></u>
+<div id="head-title">
+      <u><big>Word War 2 Media Map</big></u>
     </div>
     <br>
-    <div id="article">
-	    <caption> POI node JS server with Leaflet API</caption>
+    <div id="head-subtitle">
+	    <caption>
+        Click One of the markers to See the information!
+        </caption>
     </div>
     <p>
 <div class="split left">
  	<div id='map'></div>
 </div>
 <div class="split right">
-	<h1><u>MarkerInfo</></h1>
-	<div id='markerInfo'>
-	</div>
+    <div id='title'> </div>
+	<div id='markerInfo'></div>
 </div> 
     <div id="footer">
-      Spuzzelsnest
+      This Project was started in nov 2007. Many respect goes out to all combat journalists and people in conflict zones. Many thanks also to the many contributers, the journalist , the historians, the locals who helped me along the way. None of the material is my property, this is only for educational purposes!
     </div>
   </body>
 </html>

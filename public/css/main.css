@@ -8,7 +8,7 @@ html, body{
 }
 
 body{
-  background-image: url("img/bg.jpg");
+  background-image: url("../img/bg.jpg");
   position: fixed;
   height: 100%;
   width: 100%;
@@ -33,12 +33,21 @@ body{
   right: 0;
 }
 
-#article{
+#head-title{
   z-index: 2;
-  background-color: rgba(255,255,255,0.66);
-  font-size: 12px;
+  font-size: 16px;
+  text-align: center;
   position: fixed;
   left: 10%;
+  right: 10%;
+}
+#head-subtitle{
+  z-index: 2;
+  font-size: 13px;
+  text-align: center;
+  position: fixed;
+  left: 10%;
+  right: 10%;
 }
 
 #map{
@@ -56,7 +65,7 @@ body{
   padding-left: 12px;
   position: fixed;
   width: 38%;
-  height: 66.9%;
+  height: 79%;
   right:  2.5%;
   overflow: auto;
 }
@@ -64,8 +73,10 @@ body{
 #footer{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);
-  font-size: 8px;
+  font-size: 9px;
+  text-align: center;
   position: fixed;
-  left: 20%;
-  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 1%;
 }
