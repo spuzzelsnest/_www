@@ -30,22 +30,27 @@ function loadMap() {
 
 	for(var i in markers){
 
+        var country = markers[i].Country;
+		var name = markers[i].Name;
+        var address = markers[i].Address;
+        var zcode = markers[i].Zip_Code;
+        var city = markers[i].City;
+        var phone = markers[i].Phone;
+		var email = markers[i].Email;
+        var web = markers[i].Website;
+        var contact = markers[i].Contact;
         var lat = markers[i].Lat;
         var lng = markers[i].Lng;
 		var dif = markers[i].Verified;
-		var title = markers[i].Name;
-        var address = markers[i].Address;
-        var zcode = markers[i].Zip_Code;
-        var country = markers[i].Country;
-        var phone = markers[i].Phone;
-		var place = markers[i].City;
-		var info = markers[i].info;
-
-        var code = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><br>"+ address;
+        
+        
+        var title = name+" - "+city;
+        
+        var code = "<big><u>"+title+" ("+country+")</u></big><p><center><br>"+ address;
 		
 		var marker = L.marker([lat, lng], {icon: iconType[dif]});
         marker.code = code;
-        marker.title = title;
+        marker.title = title.replace("'","&#39;");
         marker.on('click', sideDiv);
 		cluster.addLayer(marker);
 	}
