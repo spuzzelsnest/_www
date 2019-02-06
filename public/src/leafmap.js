@@ -1,8 +1,16 @@
 function loadMap() {
 
-	var map = L.map('map').setView([50.1, 6], 6);
-
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+	var map = L.map('map').setView([50.1, 6], 5);
+    mapLink = 
+            '<a href="http://www.esri.com/">Esri</a>';
+        wholink = 
+            'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+    
+	L.tileLayer(
+            'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '&copy; '+mapLink+', '+wholink,
+            maxZoom: 18,
+            }).addTo(map);
         var LeafIcon = L.Icon.extend({
             options: {
                     iconSize:[20, 25]
@@ -29,7 +37,9 @@ function loadMap() {
 		}
 	});
 
-	for(var i in markers){
+    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
+
+    for(var i in markers){
 
         var lat = markers[i].lat;
         var lng = markers[i].lng;
@@ -43,9 +53,9 @@ function loadMap() {
         
 		if (dif < 3){
 
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+ info;
+			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
 		}else{
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+ info;
+			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
 		}
 
 		var marker = L.marker([lat, lng], {icon: iconType[dif]});
