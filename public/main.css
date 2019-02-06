@@ -23,25 +23,26 @@ body{
   width: 30%;
   position: fixed;
 }
-
+#legenda{
+    border: 6px solid #D7D7D7;
+}
+#search{
+    z-index: 2;
+    right: 15%;
+}
+#header{
+  z-index: 2;
+  background-color: rgba(255,255,255,0.66);
+  font-size: 12px;
+  position: fixed;
+  left: 10%;
+}
 .left {
   left: 0;
 }
 
 .right {
   right: 0;
-}
-#searchBox{
-    z-index: 2;
-    position: fixed; 
-    
-}
-#article{
-  z-index: 2;
-  background-color: rgba(255,255,255,0.66);
-  font-size: 12px;
-  position: fixed;
-  left: 10%;
 }
 
 #map{

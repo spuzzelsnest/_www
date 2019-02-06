@@ -11,8 +11,7 @@ function loadMap() {
 
     var iconType = {};
         iconType['0'] = new LeafIcon({iconUrl: '/img/point01.png'});
-
-
+        iconType['1'] = new LeafIcon({iconUrl: '/img/point02.png'});
 	var cluster = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
@@ -26,7 +25,12 @@ function loadMap() {
 				opacity: 0.5
 		}
 	});
-
+    
+    var spec = jQuery.unique(markers,function(uni, i){return(uni.verified);});
+    
+    markers = jQuery.grep(markers,function(item, i){return(item.Verified == "0" && i > 1);});
+    var cfilter= markers.length;
+    document.getElementById('legenda').innerHTML= "<input type='checkbox' id='0' name='verified'/>"+cfilter +" "+ spec.length;
 	for(var i in markers){
 
         var country = markers[i].Country;
@@ -76,7 +80,7 @@ function read(title){
 function search(){
     
     var term = document.getElementsByClassName('searchField')[0].value;
-    var regex = new RegExp('/'+term+'/.*$', 'ig');
+    var regex = new RegExp('/'+term+'/', 'ig');
         if (term == ''){
             document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
         }else{
@@ -85,8 +89,6 @@ function search(){
             for (var m in markers) {
               if(makres.Name[m].test(m))
                     document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers.Name[m]+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
-
             }
         }
 }
-
