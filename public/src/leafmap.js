@@ -47,7 +47,7 @@ for(c = 0; c< markers.length; c++){
 }
 
 for(i = 0; i< cat.length; i++){    
-document.getElementById('legenda').innerHTML += "<input type='checkbox' name='typeId' vaulue="+cat[i]+">  <img src="+iconType[cat[i]]+">";
+document.getElementById('legenda').innerHTML += "<input type='checkbox' name='typeId' vaulue="+cat[i]+" checked>  <img src="+iconType[cat[i]]+">";
 }
  
     
