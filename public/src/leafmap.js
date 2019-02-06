@@ -18,10 +18,10 @@ function loadMap() {
         });
 
     var iconType = {};
-        iconType['1'] = new LeafIcon({iconUrl: '/img/Afoto.png'});
-        iconType['2'] = new LeafIcon({iconUrl: '/img/Xfoto.png'});
-        iconType['3'] = new LeafIcon({iconUrl: '/img/Avideo.png'});
-        iconType['4'] = new LeafIcon({iconUrl: '/img/XVideo.png'});
+        iconType['1'] = '/img/Afoto.png';
+        iconType['2'] = '/img/Xfoto.png';
+        iconType['3'] = '/img/Avideo.png';
+        iconType['4'] = '/img/XVideo.png';
 
 	var cluster = L.markerClusterGroup({
 
@@ -38,7 +38,19 @@ function loadMap() {
 	});
 
     markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
+    
+    var cat = [];
+for(c = 0; c< markers.length; c++){    
+    if(cat.indexOf(markers[c].typeId) === -1){
+        cat.push(markers[c].typeId);        
+    }        
+}
 
+for(i = 0; i< cat.length; i++){    
+document.getElementById('legenda').innerHTML += "<input type='checkbox' name='typeId' vaulue="+cat[i]+">  <img src="+iconType[cat[i]]+">";
+}
+ 
+    
     for(var i in markers){
 
         var lat = markers[i].lat;
@@ -58,7 +70,7 @@ function loadMap() {
 			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
 		}
 
-		var marker = L.marker([lat, lng], {icon: iconType[dif]});
+		var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
         marker.html = customPopup;
         marker.info = info.replace("'","&#39;");
         marker.on('click', sideDiv);

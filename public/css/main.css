@@ -17,22 +17,6 @@ body{
   color: #333:
 }
 
-.split {
-  z-index: 1;
-  top: 15%;
-  height: 100%;
-  width: 30%;
-  position: fixed;
-}
-
-.left {
-  left: 0;
-}
-
-.right {
-  right: 0;
-}
-
 #head-title{
   z-index: 2;
   font-size: 16px;
@@ -49,7 +33,33 @@ body{
   left: 10%;
   right: 10%;
 }
+#legenda{
+        z-index: 2;
+        background-color: rgba(255,255,255,0.66);
+        padding: 15px;
+        position: fixed;
+        top: 10%;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        left: 29%;
+}
+.split {
+  z-index: 1;
+  top: 15%;
+  height: 100%;
+  width: 30%;
+  position: fixed;
+}
 
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
 #map{
   border: 6px solid #D7D7D7;
   position: fixed;
@@ -57,7 +67,6 @@ body{
   width: 55%;
   left: 2.5%;
 }
-
 #markerInfo{
   z-index: 3;
   font-size: 12px;
