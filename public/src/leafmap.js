@@ -6,10 +6,10 @@ function loadMap() {
         iconType['3'] = '/img/Avideo.png';
         iconType['4'] = '/img/XVideo.png';
      var legName = {};
-        legName['1'] = "Allied photo's";
-        legName['2'] = "Axis photo'";
-        legName['3'] = "Allied Video's";
-        legName['4'] = "Axis Video's";
+        legName['1'] = "Allied photo\'s";
+        legName['2'] = "Axis photo\'s";
+        legName['3'] = "Allied Video\'s";
+        legName['4'] = "Axis Video\'s";
     
       markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
     
@@ -19,10 +19,9 @@ function loadMap() {
         cat.push(markers[c].typeId);        
         }        
     }
-  
     
     for(i = 0; i< cat.length; i++){    
-    document.getElementById('legenda').innerHTML += "<input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onclick='reloadMap();'/> "+legName[cat[1]]+" <img src="+iconType[cat[i]]+">";
+        document.getElementById('legenda').innerHTML += "<input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onclick='reloadMap();'/> "+cat.lenght+" "+legName[cat[i]]+" <img src="+iconType[cat[i]]+">";
     }
     
 loadingMap(markers, iconType);
