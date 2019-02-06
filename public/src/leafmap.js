@@ -1,6 +1,6 @@
 function loadMap() {
     
-	var map = L.map('map').setView([50.1, 6], 6);
+	var map = L.map('map').setView([46.5, 9], 5);
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
         var LeafIcon = L.Icon.extend({
@@ -51,6 +51,12 @@ function loadMap() {
 		cluster.addLayer(marker);
 	}
 	map.addLayer(cluster);
+    
+    geojson = L.geoJson(ITcurrentRegions).addTo(map);
+    geojson = L.geoJson(EUcurrentCountries).addTo(map);
+    geojson.eachLayer(function (layer) {
+        layer.bindPopup(layer.feature.properties.name);
+    });
 }
 
 function sideDiv(e){
@@ -70,18 +76,17 @@ function read(title){
 function search(){
     
     var term = document.getElementsByClassName('searchField')[0].value;
-    var regex = new RegExp("/\b"+ term +"\b?", 'g');
-    var result = [];
-    if (term == ''){
-        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
-    }else{
-        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><p>RESULT For: "+term;
-        
-        if (markers.Name.match(regex)){
-            document.getElementById('markerInfo').innerHTML = "<li class='list-group-item link-class'>"+markers[i].Name+" | <span class='text-muted'>"+markers[i].Address+"</span></li>";
+    var regex = new RegExp('/'+term+'/.*$', 'ig');
+        if (term == ''){
+            document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
         }else{
-                document.getElementById('markerInfo').innerHTML = "<u><b>No Result Found</u>";
-          }  
-    }
+            document.getElementById('markerInfo').innerHTML = "<h1><u>Search</u></h1><p>RESULT For: "+term;
+            
+            for (var m in markers) {
+              if(makres.Name[m].test(m))
+                    document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers.Name[m]+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+
+            }
+        }
 }
 
