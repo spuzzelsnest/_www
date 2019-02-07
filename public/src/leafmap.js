@@ -96,17 +96,22 @@ function read(title){
 }
 
 function search(){
-    
+    var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
     var regex = new RegExp('/'+term+'/', 'ig');
-        if (term == ''){
+    
+    if (term == ''){
             document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
-        }else{
-            document.getElementById('markerInfo').innerHTML = "<h1><u>Search</u></h1><p>RESULT For: "+term;
+    }else{
+        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
+        document.getElementById('markerInfo').innerHTML = "<p>RESULT For: "+term;
             
-            for (var m in markers) {
-              if(markers.Name[m].test(m))
-                    document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers.Name[m]+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
-            }
+        
+    for (m in markers) {
+      if (markers[m].Name === term) {
+            document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
         }
+    }
+        
+   }
 }
