@@ -34,17 +34,17 @@ function loadMap() {
 	for(var i in markers){
 
         var country = markers[i].Country;
-		var name = markers[i].Name;
+	var name = markers[i].Name;
         var address = markers[i].Address;
         var zcode = markers[i].Zip_Code;
         var city = markers[i].City;
         var phone = markers[i].Phone;
-		var email = markers[i].Email;
+	var email = markers[i].Email;
         var web = markers[i].Website;
         var contact = markers[i].Contact;
         var lat = markers[i].Lat;
         var lng = markers[i].Lng;
-		var dif = markers[i].Verified;
+	var dif = markers[i].Verified;
         
         var title = name+" - "+city;
         var code = "<big><u>"+title+" ("+country+")</u></big><p><center><br>"+ address;
@@ -64,17 +64,18 @@ function loadMap() {
 }
 
 function sideDiv(e){
-
+	
 	var text= this.code;
-    var title = this.title;
-    document.getElementById('title').innerHTML = "<h1><u>MarkerInfo</u></h1>";
-    document.getElementById('markerInfo').innerHTML = text;
-    document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
+	var title = this.title;
+	
+	document.getElementById('title').innerHTML = "<h1><u>MarkerInfo</u></h1>";
+	document.getElementById('markerInfo').innerHTML = text;
+	document.getElementById('markerInfo').innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
 }
 
 function read(title){
-    var text = title;
-    responsiveVoice.speak(text);
+	
+    responsiveVoice.speak(title);
 }
 
 function search(){
