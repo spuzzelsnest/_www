@@ -104,14 +104,16 @@ function search(){
             document.getElementById('title').innerHTML = "<h1><u>Search</u></h1><br>What are you looking for?";
     }else{
         document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
-        document.getElementById('markerInfo').innerHTML = "<p>RESULT For: "+term;
+        document.getElementById('markerInfo').innerHTML = "";
             
         
     for (m in markers) {
       if (markers[m].Name === term) {
-            document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
-        }
+        results.push(markers[m]);
+          document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+          
+      }
     }
-        
+        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term; 
    }
 }
