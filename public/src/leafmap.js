@@ -16,7 +16,9 @@ function loadMap() {
     }
     
     for(i = 0; i< cat.length; i++){
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+cat[i].length+" "+legName[cat[i]]+" · ";
+        
+        distCount = (jQuery.grep(markers,function(item, c){return(item.Verified == cat[i] && c > 1);})).length;
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
     }
 
 loadingMap(markers, iconType);
@@ -80,7 +82,7 @@ function loadingMap(markers,iconType){
 }
 
 function sideDiv(e){
-
+    
 	var text= this.code;
     var title = this.title;
     document.getElementById('title').innerHTML = "<h1><u>MarkerInfo</u></h1>";
