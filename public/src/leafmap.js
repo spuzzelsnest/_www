@@ -102,7 +102,7 @@ function search(){
             document.getElementById('markerInfo').innerHTML = "<h1><u>Search</u></h1><p>RESULT For: "+term;
             
             for (var m in markers) {
-              if(makres.Name[m].test(m))
+              if(markers.Name[m].test(m))
                     document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers.Name[m]+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
             }
         }
