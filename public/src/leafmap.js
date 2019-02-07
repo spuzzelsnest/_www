@@ -99,9 +99,7 @@ function sideDiv(e){
     if (info !== ''){
         document.getElementById('speakButton').innerHTML = "<p><button onclick='read(`"+info+"`);'>Read Me</button>";
     }
-    
     document.getElementById('markerInfo').innerHTML = text;
-    
 }
 
 function read(info){
