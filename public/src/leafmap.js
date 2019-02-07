@@ -18,7 +18,7 @@ function loadMap() {
     for(i = 0; i< cat.length; i++){
         
         distCount = (jQuery.grep(markers,function(item, c){return(item.Verified == cat[i] && c > 1);})).length;
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
     }
 
 loadingMap(markers, iconType);
@@ -76,6 +76,7 @@ function loadingMap(markers,iconType){
     
     geojson = L.geoJson(ITcurrentRegions).addTo(map);
     geojson = L.geoJson(EUcurrentCountries).addTo(map);
+    
     geojson.eachLayer(function (layer) {
         layer.bindPopup(layer.feature.properties.name);
     });
