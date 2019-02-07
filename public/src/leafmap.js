@@ -1,5 +1,29 @@
 function loadMap() {
     
+    var iconType = {};
+        iconType['0'] = '/img/marker1.png';
+        iconType['1'] = '/img/marker2.png';
+
+     var legName = {};
+        legName['0'] = 'unverified';
+        legName['1'] = 'Verified';
+  
+    var cat = [];
+    for(i = 0; i < markers.length; i++){    
+        if(cat.indexOf(markers[i].Verified) === -1){
+        cat.push(markers[i].Verified);
+        }
+    }
+
+    for(i = 0; i< cat.length; i++){
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+cat[i].length+" "+legName[cat[i]]+" · ";
+    }
+
+loadingMap(markers, iconType);
+}
+
+function loadingMap(markers,iconType){
+
 	var map = L.map('map').setView([46.5, 9], 5);
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
@@ -9,9 +33,6 @@ function loadMap() {
               }
         });
 
-    var iconType = {};
-        iconType['0'] = new LeafIcon({iconUrl: '/img/point01.png'});
-        iconType['1'] = new LeafIcon({iconUrl: '/img/point02.png'});
 	var cluster = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
@@ -26,11 +47,6 @@ function loadMap() {
 		}
 	});
     
-    var spec = jQuery.unique(markers,function(uni, i){return(uni.verified);});
-    
-    markers = jQuery.grep(markers,function(item, i){return(item.Verified == "0" && i > 1);});
-    var cfilter= markers.length;
-    document.getElementById('legenda').innerHTML= "<input type='checkbox' id='0' name='verified'/>"+cfilter +" "+ spec.length;
 	for(var i in markers){
 
         var country = markers[i].Country;
@@ -48,7 +64,7 @@ function loadMap() {
         
         var title = name+" - "+city;
         var code = "<big><u>"+title+" ("+country+")</u></big><p><center><br>"+ address;
-		var marker = L.marker([lat, lng], {icon: iconType[dif]});
+		var marker = L.marker([lat, lng], {icon:  new LeafIcon({iconUrl:[iconType[dif]]})});
         marker.code = code;
         marker.title = title.replace("'","&#39;");
         marker.on('click', sideDiv);
@@ -73,8 +89,7 @@ function sideDiv(e){
 }
 
 function read(title){
-    var text = title;
-    responsiveVoice.speak(text);
+    responsiveVoice.speak(title);
 }
 
 function search(){
