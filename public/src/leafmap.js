@@ -78,15 +78,15 @@ function loadingMap(markers,iconType){
 		var date = markers[i].date;
 		var info = markers[i].info;
         
-		if (dif < 3){
+        if (dif < 3){
 
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
+			var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
 		}else{
-			var customPopup = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
+			var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
 		}
 
 		var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-        marker.html = customPopup;
+        marker.html = cusCode;
         marker.info = info.replace("'","&#39;");
         marker.on('click', sideDiv);
 		cluster.addLayer(marker);
@@ -96,16 +96,14 @@ function loadingMap(markers,iconType){
 }
 
 function sideDiv(e){
+    
 	var text= this.html;
     var info = this.info;
     
     if (info !== ''){
-        document.getElementById('speakButton').innerHTML = "<p><button onclick='read(`"+info+"`);'>Read Me</button>";
+        document.getElementById('speakButton').innerHTML = "<p><button onclick='responsiveVoice.speak(`"+info+"`);'>Read Me</button>";
+    }else{
+        document.getElementById('speakButton').innerHTML = "";
     }
     document.getElementById('markerInfo').innerHTML = text;
-}
-
-function read(info){
-    var text = info;
-    responsiveVoice.speak(text);
 }
