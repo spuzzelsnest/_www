@@ -25,10 +25,13 @@ body{
 }
 #legenda{
     border: 6px solid #D7D7D7;
+    text-align: center;
 }
 #search{
     z-index: 2;
+    position: fixed;
     right: 15%;
+    top: 5%;
 }
 #header{
   z-index: 2;

@@ -14,7 +14,7 @@ function loadMap() {
         cat.push(markers[i].Verified);
         }
     }
-
+    
     for(i = 0; i< cat.length; i++){
         document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+cat[i].length+" "+legName[cat[i]]+" · ";
     }
