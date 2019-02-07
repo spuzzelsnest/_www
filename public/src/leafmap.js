@@ -20,8 +20,11 @@ function loadMap() {
         }        
     }
     
-    for(i = 0; i< cat.length; i++){    
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+"> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+legName[cat[i]]+" · ";
+    for(i = 0; i< cat.length; i++){
+        
+        distCount = (jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);})).length;
+        
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+"> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
     }
     
 loadingMap(markers, iconType);
