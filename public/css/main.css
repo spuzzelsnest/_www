@@ -19,22 +19,14 @@ body{
 
 #head-title{
   z-index: 2;
-  font-size: 20px;
+  font-size: 26px;
   text-align: center;
   position: fixed;
   top:0.2%;
   left: 10%;
   right: 10%;
 }
-#head-subtitle{
-  z-index: 2;
-  font-size: 13px;
-  text-align: center;
-  position: fixed;
-  top: 5%;
-  left: 10%;
-  right: 10%;
-}
+
 #legenda{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);
