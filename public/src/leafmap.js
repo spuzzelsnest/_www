@@ -106,17 +106,14 @@ function search(){
         document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
         document.getElementById('markerInfo').innerHTML = "";
     for (m in markers) {
-        
         name = JSON.stringify(markers[m].Name);
-        console.log(name.search(regex));
-        
-      if (markers[m].Name === term) {
-          
-          results.push(markers[m]);
+        if (name.match(regex)){
+            results.push(name);
           document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
-          
-      }
+   
     }
-        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term;
+        
    }
+        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term;
+}
 }
