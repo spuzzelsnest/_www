@@ -26,6 +26,12 @@ body{
   left: 10%;
   right: 10%;
 }
+#search{
+    z-index: 2;
+    position: fixed;
+    right: 5%;
+    top: 2%;
+}
 
 #legenda{
   z-index: 2;
