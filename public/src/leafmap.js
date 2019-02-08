@@ -107,3 +107,24 @@ function sideDiv(e){
     }
     document.getElementById('markerInfo').innerHTML = text;
 }
+function search(){
+    var results =[];
+    var term = document.getElementsByClassName('searchField')[0].value;
+    var regex = new RegExp('/'+term+'/', 'ig');
+    
+    if (term == ''){
+            document.getElementById('markerInfo').innerHTML = "What are you looking for?";
+    }else{
+        document.getElementById('markerInfo').innerHTML = "";
+            
+        
+    for (m in markers) {
+      if (markers[m].Name === term) {
+        results.push(markers[m]);
+          document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+          
+      }
+    }
+        document.getElementById('markerInfo').innerHTML += "Found: "+results.length+" results for "+term; 
+    }
+}
