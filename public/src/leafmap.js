@@ -109,10 +109,11 @@ function sideDiv(e){
 }
 
 function search(){
+    document.getElementById('speakButton').innerHTML = "";
+    document.getElementById('markerInfo').innerHTML ="";
     
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
-    document.getElementById('markerInfo').innerHTML ="";
     var regex = new RegExp( term, 'ig');
     
     if (term == ''){
