@@ -68,15 +68,15 @@ function loadingMap(markers,iconType){
   
     for(var i in markers){
 
-        var lat = markers[i].lat;
-        var lng = markers[i].lng;
-		var dif = markers[i].typeId;
-		var title = markers[i].shortdesc;
-		var img = markers[i].name;
-		var place = markers[i].place;
+        var lat     = markers[i].lat;
+        var lng     = markers[i].lng;
+		var dif     = markers[i].typeId;
+		var title   = markers[i].shortdesc;
+		var img     = markers[i].name;
+		var place   = markers[i].place;
 		var country = markers[i].country;
-		var date = markers[i].date;
-		var info = markers[i].info;
+		var date    = markers[i].date;
+		var info    = markers[i].info;
         
         if (dif < 3){
 
@@ -107,24 +107,29 @@ function sideDiv(e){
     }
     document.getElementById('markerInfo').innerHTML = text;
 }
+
 function search(){
+    
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
-    var regex = new RegExp('/'+term+'/', 'ig');
+    var regex = new RegExp( term, 'ig');
     
     if (term == ''){
-            document.getElementById('markerInfo').innerHTML = "What are you looking for?";
+            document.getElementById('title').innerHTML = "<h2><u>Search</u></h2><br>What are you looking for?";
     }else{
+        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
         document.getElementById('markerInfo').innerHTML = "";
-            
-        
     for (m in markers) {
-      if (markers[m].Name === term) {
-        results.push(markers[m]);
-          document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+        name = JSON.stringify(markers[m].info);
+        
+        if (name.match(regex)){
+            results.push(name);
           
-      }
+            document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].shortdesc+" | <span class='text-muted'>"+markers[m].info+"</span></li>";
+   
     }
-        document.getElementById('markerInfo').innerHTML += "Found: "+results.length+" results for "+term; 
-    }
+        
+   }
+        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term;
+}
 }
