@@ -12,21 +12,22 @@ function loadMap() {
         legName['3'] = "Allied Video\'s";
         legName['4'] = "Axis Video\'s";
 
-      markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
-
+    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
+    
     var cat = [];
+    
     for(c = 0; c< markers.length; c++){    
         if(cat.indexOf(markers[c].typeId) === -1){
-        cat.push(markers[c].typeId);        
-        }        
+        cat.push(markers[c].typeId);
+        }
     }
     for(i = 0; i< cat.length; i++){
-        
+
         distCount = (jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);})).length;
-        
+
         document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+"> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
     }
-loadingMap(markers, iconType);
+    loadingMap(markers, iconType);
 }
 
 function loadingMap(markers,iconType){
@@ -121,5 +122,5 @@ function search(){
             }
        }
         document.getElementById('markerInfo').innerHTML += "Found: "+results.length+" results for "+term;
-}
+    }
 }
