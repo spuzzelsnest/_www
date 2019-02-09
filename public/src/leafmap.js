@@ -112,12 +112,12 @@ function search(){
     
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
+    document.getElementById('markerInfo').innerHTML ="";
     var regex = new RegExp( term, 'ig');
     
     if (term == ''){
-            document.getElementById('title').innerHTML = "<h2><u>Search</u></h2><br>What are you looking for?";
+            document.getElementById('markerInfo').innerHTML = "What are you looking for?";
     }else{
-        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
         document.getElementById('markerInfo').innerHTML = "";
     for (m in markers) {
         name = JSON.stringify(markers[m].info);
@@ -130,6 +130,6 @@ function search(){
     }
         
    }
-        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term;
+        document.getElementById('markerInfo').innerHTML += "Found: "+results.length+" results for "+term;
 }
 }
