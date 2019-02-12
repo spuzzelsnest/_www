@@ -23,7 +23,7 @@ function loadMap() {
     
         var LeafIcon = L.Icon.extend({
             options: {
-                    iconSize:[20, 25]
+                    iconSize:[20, 22]
               }
         });
     
@@ -58,29 +58,31 @@ function loadMap() {
         catData = jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);});
         distCount = catData.length;
 
-      document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
+      document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='22px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
 
         for(m in catData){
 
             var lat     = catData[m].lat;
             var lng     = catData[m].lng;
             var dif     = catData[m].typeId;
-            var title   = catData[m].shortdesc;
+            var head   = catData[m].shortdesc;
             var img     = catData[m].name;
             var place   = catData[m].place;
             var country = catData[m].country;
             var date    = catData[m].date;
             var info    = catData[m].info;
-
+            
+            var title = place+" - "+date;
+    
             if (dif < 3){
-
-                var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
+                var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br><u><h3>"+head+"</h3></u><br>"+info;
             }else{
-                var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
+                var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+head+"<br>"+info;
             }
 
             var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
             
+            marker.title = title;
             marker.html = cusCode;
             marker.latLng = marker.getLatLng();
             marker.info = info.replace("'","&#39;");
@@ -91,47 +93,56 @@ function loadMap() {
     }
     map.addLayer(catMarkers);
     
-function sideDiv(e){
-    
-	var text= this.html;
-    var info = this.info;
-    
-    if (info !== ''){
-        document.getElementById('speakButton').innerHTML = "<p><button onclick='responsiveVoice.speak(`"+info+"`);'>Read Me</button>";
-    }else{
-        document.getElementById('speakButton').innerHTML = "";
+    function sideDiv(e){
+        
+        var title= this.title;
+        var text= this.html;
+        var info = this.info;
+        var latLng = this.latLng;
+        
+        titleDiv.innerHTML = "<h3><u>"+title+"</u></h3>";
+        if (info !== ''){
+            document.getElementById('speakButton').innerHTML = "<p><button onclick='responsiveVoice.speak(`"+info+"`);'>Read Me</button>";
+        }else{
+            document.getElementById('speakButton').innerHTML = "";
+        }
+        titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
+        titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
+        titleDiv.onclick = function(e){map.setView(latLng, '13', {animation: true});};
+        
+        infoDiv.innerHTML = text;
     }
-    titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
-    titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
-    titleDiv.onclick = function(e){map.setView(latLng, '13', {animation: true});};
-    
-    document.getElementById('markerInfo').innerHTML = text;
-    
 }
-}
+
 
 function search(){
-    document.getElementById('speakButton').innerHTML = "";
-    document.getElementById('markerInfo').innerHTML ="";
     
+    var titleDiv = document.getElementById('title');
+    var infoDiv = document.getElementById('markerInfo');
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
-    
     var regex = new RegExp( term, 'ig');
     
+    titleDiv.onclick = function() {return false;};
+    titleDiv.onmouseover = function(){return false;};
+    titleDiv.onmouseout = function(){return false;};
+    
     if (term == ''){
-            document.getElementById('markerInfo').innerHTML = "What are you looking for?";
+        titleDiv.innerHTML = "<h3><u>Search</u></h3>";
+        infoDiv.innerHTML = "<br>What are you looking for?";
     }else{
-        document.getElementById('markerInfo').innerHTML = "";
+        titleDiv.innerHTML = "<h3><u>Search</u></h3>";
+        infoDiv.innerHTML = "";
         for (m in markers) {
-            name = JSON.stringify(markers[m].info);
-
+            name = JSON.stringify(markers[m].Name);
             if (name.match(regex)){
                 results.push(name);
 
-                document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].shortdesc+" | <span class='text-muted'>"+markers[m].info+"</span></li>";
+                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'><a href='#' onclick='fucntion(){map.setView(latLng("+markers[m].Lat+","+markers[m].Lng+"), 13, {animation: true});};'>"+markers[m].Name+"</a> | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+
+                document.getElementById(m).onClick = function(e){map.setView(markers[m].getLatLng(), '13', {animation: true});}
             }
-       }
-        document.getElementById('markerInfo').innerHTML += "Found: "+results.length+" results for "+term;
+        }
+        titleDiv.innerHTML += "Found: "+results.length+" results for "+term;
     }
 }
