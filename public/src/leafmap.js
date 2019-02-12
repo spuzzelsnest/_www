@@ -11,39 +11,23 @@ function loadMap() {
         legName['2'] = "Axis photo\'s";
         legName['3'] = "Allied Video\'s";
         legName['4'] = "Axis Video\'s";
-
-    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
-    
-    var cat = [];
-    
-    for(c = 0; c< markers.length; c++){    
-        if(cat.indexOf(markers[c].typeId) === -1){
-        cat.push(markers[c].typeId);
-        }
-    }
-    for(i = 0; i< cat.length; i++){
-        distCount = (jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);})).length;
-
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+"> <input type='checkbox' name='typeId' vaulue="+cat[i]+" checked onchange='loadingMap(markers);'/> "+distCount+" "+legName[cat[i]]+" · ";
-    }
-    loadingMap(markers, iconType);
-}
-
-function loadingMap(markers,iconType){
     
     var map = L.map('map').setView([50.1, 6], 6);
     mapLink = '<a href="http://www.esri.com/">Esri</a>';
-        wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
-	L.tileLayer( 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+    wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+
+    L.tileLayer( 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
             attribution: '&copy; '+mapLink+', '+wholink,
             maxZoom: 18,
             }).addTo(map);
+    
         var LeafIcon = L.Icon.extend({
             options: {
                     iconSize:[20, 25]
               }
         });
-	var cluster = L.markerClusterGroup({
+    
+    var catMarkers = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
 		showCoverageOnHover: false,
@@ -56,35 +40,57 @@ function loadingMap(markers,iconType){
 				opacity: 0.5
 		}
 	});
+    
+    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
+    
+    var titleDiv = document.getElementById('title');
+    var infoDiv = document.getElementById('markerInfo');
+    var cat = [];
 
-    for(var i in markers){
+    for(i = 0; i< markers.length; i++){
+        if(cat.indexOf(markers[i].typeId) === -1){
+            cat.push(markers[i].typeId);
+        }
+    }
 
-        var lat     = markers[i].lat;
-        var lng     = markers[i].lng;
-		var dif     = markers[i].typeId;
-		var title   = markers[i].shortdesc;
-		var img     = markers[i].name;
-		var place   = markers[i].place;
-		var country = markers[i].country;
-		var date    = markers[i].date;
-		var info    = markers[i].info;
+    for(i = 0; i< cat.length; i++){
         
-        if (dif < 3){
+        catData = jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);});
+        distCount = catData.length;
 
-			var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
-		}else{
-			var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
-		}
+      document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
 
-		var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-        marker.html = cusCode;
-        marker.info = info.replace("'","&#39;");
-        marker.on('click', sideDiv);
-		cluster.addLayer(marker);
-	}
-	map.addLayer(cluster);
-}
+        for(m in catData){
 
+            var lat     = catData[m].lat;
+            var lng     = catData[m].lng;
+            var dif     = catData[m].typeId;
+            var title   = catData[m].shortdesc;
+            var img     = catData[m].name;
+            var place   = catData[m].place;
+            var country = catData[m].country;
+            var date    = catData[m].date;
+            var info    = catData[m].info;
+
+            if (dif < 3){
+
+                var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>"+date+"<br>"+info;
+            }else{
+                var cusCode = "<big><u>"+title+" "+place+" ("+country+")</u></big><p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+date+"<br>"+info;
+            }
+
+            var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
+            
+            marker.html = cusCode;
+            marker.latLng = marker.getLatLng();
+            marker.info = info.replace("'","&#39;");
+            marker.on('click', sideDiv);
+            
+            catMarkers.addLayer(marker);
+        }
+    }
+    map.addLayer(catMarkers);
+    
 function sideDiv(e){
     
 	var text= this.html;
@@ -95,7 +101,13 @@ function sideDiv(e){
     }else{
         document.getElementById('speakButton').innerHTML = "";
     }
+    titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
+    titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
+    titleDiv.onclick = function(e){map.setView(latLng, '13', {animation: true});};
+    
     document.getElementById('markerInfo').innerHTML = text;
+    
+}
 }
 
 function search(){
