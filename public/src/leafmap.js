@@ -1,5 +1,3 @@
-var map = null;
-
 function loadMap() {
     
     var iconType = {};
@@ -9,9 +7,9 @@ function loadMap() {
     var legName = {};
         legName['0'] = 'unverified';
         legName['1'] = 'Verified';
-    
+    var titleDiv = document.getElementById('title');
+    var infoDiv = document.getElementById('markerInfo');
     var cat = [];
-
     var map = L.map('map', {
         center:[46.5, 9],
         zoom: 5,
@@ -90,29 +88,20 @@ function loadMap() {
     geojson = L.geoJson(EUcurrentCountries).addTo(map);
 
     function sideDiv(e){
-        
-         console.log('clicked');
+
         var text= this.code;
         var title = this.title;
         var latLng = this.latLng;
-
-        var titleDiv = document.getElementById('title');
-        var infoDiv = document.getElementById('markerInfo');
         titleDiv.innerHTML = "<h3><u>"+title+"</u></h3>";
 
-        titleDiv.onmouseover = function(){titleDiv.style.color = '#4286f4';};
+        titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
         titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
-        titleDiv.onclick = function(e){
-            
-                map.setView(latLng, '13', {animation: true});
-                return false;
-            
-            console.log('Focus '+latLng);
-        };
+        titleDiv.onclick = function(e){map.setView(latLng, '13', {animation: true});};
 
         infoDiv.innerHTML = text;
         infoDiv.innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
     }
+    
 }
 
 function read(title){
@@ -121,24 +110,32 @@ function read(title){
 
 function search(){
     
+    var titleDiv = document.getElementById('title');
+    var infoDiv = document.getElementById('markerInfo');
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
     var regex = new RegExp( term, 'ig');
     
+    titleDiv.onclick = function() {return false;};
+    titleDiv.onmouseover = function(){return false;};
+    titleDiv.onmouseout = function(){return false;};
+    
     if (term == ''){
-        document.getElementById('title').innerHTML = "<h2><u>Search</u>";
-        document.getElementById('markerInfo').innerHTML = "</h2><br>What are you looking for?";
+        titleDiv.innerHTML = "<h2><u>Search</u>";
+        infoDiv.innerHTML = "</h2><br>What are you looking for?";
     }else{
-        document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
-        document.getElementById('markerInfo').innerHTML = "";
+        titleDiv.innerHTML = "<h1><u>Search</u></h1>";
+        infoDiv.innerHTML = "";
         for (m in markers) {
             name = JSON.stringify(markers[m].Name);
             if (name.match(regex)){
                 results.push(name);
-              document.getElementById('markerInfo').innerHTML += "<li class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+
+                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+
+                document.getElementById(m).onClick = function(e){map.setView(markers[m].getLatLng(), '13', {animation: true});}
             }
         }
-        
-        document.getElementById('title').innerHTML += "Found: "+results.length+" results for "+term;
+        titleDiv.innerHTML += "Found: "+results.length+" results for "+term;
     }
 }

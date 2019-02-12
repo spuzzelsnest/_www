@@ -67,6 +67,11 @@ body{
   right:  2.5%;
   overflow: auto;
 }
+#itemList{
+  z-index: 3;
+  background-color: rgba(255,255,255,0.66);
+
+}
 
 #footer{
   z-index: 2;
