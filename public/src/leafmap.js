@@ -114,20 +114,23 @@ function loadMap() {
         infoDiv.innerHTML += "<p><button onclick='read(`"+title+"`);'>Read Me</button>";
     }
 }
+
 function read(title){
     responsiveVoice.speak(title);
 }
 
 function search(){
+    
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
     var regex = new RegExp( term, 'ig');
     
     if (term == ''){
-        document.getElementById('title').innerHTML = "<h2><u>Search</u></h2><br>What are you looking for?";
+        document.getElementById('title').innerHTML = "<h2><u>Search</u>";
+        document.getElementById('markerInfo').innerHTML = "</h2><br>What are you looking for?";
     }else{
         document.getElementById('title').innerHTML = "<h1><u>Search</u></h1>";
-        document.getElementById('markerInfo').innerHTML = text;
+        document.getElementById('markerInfo').innerHTML = "";
         for (m in markers) {
             name = JSON.stringify(markers[m].Name);
             if (name.match(regex)){
