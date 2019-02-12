@@ -26,7 +26,7 @@ function loadMap() {
                     iconSize:[20, 22]
               }
         });
-    
+
     var catMarkers = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
@@ -40,9 +40,9 @@ function loadMap() {
 				opacity: 0.5
 		}
 	});
-    
+
     markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
-    
+
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
     var cat = [];
@@ -54,7 +54,7 @@ function loadMap() {
     }
 
     for(i = 0; i< cat.length; i++){
-        
+
         catData = jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);});
         distCount = catData.length;
 
@@ -71,9 +71,9 @@ function loadMap() {
             var country = catData[m].country;
             var date    = catData[m].date;
             var info    = catData[m].info;
-            
+
             var title = place+" - "+date;
-    
+
             if (dif < 3){
                 var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br><u><h3>"+head+"</h3></u><br>"+info;
             }else{
@@ -81,25 +81,24 @@ function loadMap() {
             }
 
             var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-            
             marker.title = title;
             marker.html = cusCode;
             marker.latLng = marker.getLatLng();
             marker.info = info.replace("'","&#39;");
             marker.on('click', sideDiv);
-            
+
             catMarkers.addLayer(marker);
         }
     }
     map.addLayer(catMarkers);
     
     function sideDiv(e){
-        
+
         var title= this.title;
         var text= this.html;
         var info = this.info;
         var latLng = this.latLng;
-        
+
         titleDiv.innerHTML = "<h3><u>"+title+"</u></h3>";
         if (info !== ''){
             document.getElementById('speakButton').innerHTML = "<p><button onclick='responsiveVoice.speak(`"+info+"`);'>Read Me</button>";
@@ -108,12 +107,11 @@ function loadMap() {
         }
         titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
         titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
-        titleDiv.onclick = function(e){map.setView(latLng, '13', {animation: true});};
-        
+        titleDiv.onclick = function(e){map.setView(latLng, '20', {animation: true});};
+
         infoDiv.innerHTML = text;
     }
 }
-
 
 function search(){
     
