@@ -17,8 +17,7 @@
   <link rel="stylesheet" type="text/css" href="/css/Markercluster.css" />
   <link rel="stylesheet" type="text/css" href="/css/Markercluster.default.css" /> 
   <script type="text/javascript" src="/src/leaflet.markercluster-src.js"></script>
-  
-  <script type="text/javascript" src="/src/leafmap.js"></script>
+
   <script type="text/javascript" src="/data/markers.json"></script>
 
   <script src="/src/responsivevoice.js"></script>
@@ -31,11 +30,14 @@
    <div id="search"><input placeholder="Search for a name" type=text class="searchField"/> <button onclick="search()">Search</button></div>
     <p>
 <div id='legenda'></div>
+<button id="clearAll">Clear all overlays</button>
+<ul id="list">
+
+</ul>
 <div class="split left">
  	<div id='map'></div>
 </div>
 <div class="split right">
-    <div id='speakButton'></div>
     <div id='infoDiv'>
     <div id='title'> </div>
 	<div id='markerInfo'><center>Click the Map items to find the information!</center></div>
@@ -45,4 +47,5 @@
       This Project was started in nov 2007. Many respect goes out to all combat journalists and people in conflict zones. Many thanks also to the many contributers, the journalist , the historians, the locals who helped me along the way. None of the material is my property, this is only for educational purposes!
     </div>
   </body>
+    <script type="text/javascript" src="/src/leafmap.js"></script>
 </html>

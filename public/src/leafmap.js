@@ -1,4 +1,7 @@
 function loadMap() {
+    
+    //Loading Json Data (only punlished)
+    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
 
     var iconType = {};
         iconType['1'] = '/img/Afoto.png';
@@ -16,7 +19,7 @@ function loadMap() {
     mapLink = '<a href="http://www.esri.com/">Esri</a>';
     wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
 
-    L.tileLayer( 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+    L.tileLayer( 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
             attribution: '&copy; '+mapLink+', '+wholink,
             maxZoom: 18,
             }).addTo(map);
@@ -24,10 +27,10 @@ function loadMap() {
         var LeafIcon = L.Icon.extend({
             options: {
                     iconSize:[20, 22]
-              }
+            }
         });
-
-    var catMarkers = L.markerClusterGroup({
+   
+    var catLayers = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
 		showCoverageOnHover: false,
@@ -41,57 +44,62 @@ function loadMap() {
 		}
 	});
 
-    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
-
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
+    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
     var cat = [];
 
+    //get All Categories
     for(i = 0; i< markers.length; i++){
         if(cat.indexOf(markers[i].typeId) === -1){
             cat.push(markers[i].typeId);
         }
     }
-
+    
+    //loop through Categories
     for(i = 0; i< cat.length; i++){
 
         catData = jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);});
-        distCount = catData.length;
 
-      document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='22px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
-
+        catLayers[i] = new L.markerClusterGroup();
         for(m in catData){
 
-            var lat     = catData[m].lat;
-            var lng     = catData[m].lng;
-            var dif     = catData[m].typeId;
-            var head   = catData[m].shortdesc;
-            var img     = catData[m].name;
-            var place   = catData[m].place;
-            var country = catData[m].country;
-            var date    = catData[m].date;
-            var info    = catData[m].info;
+                var lat     = catData[m].lat;
+                var lng     = catData[m].lng;
+                var dif     = catData[m].typeId;
+                var head   = catData[m].shortdesc;
+                var img     = catData[m].name;
+                var place   = catData[m].place;
+                var country = catData[m].country;
+                var date    = catData[m].date;
+                var info    = catData[m].info;
 
-            var title = place+" - "+date;
+                var title = place+" - "+date;
 
-            if (dif < 3){
-                var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br><u><h3>"+head+"</h3></u><br>"+info;
-            }else{
-                var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+head+"<br>"+info;
+                if (dif < 3){
+                    var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br><u><h3>"+head+"</h3></u><br>"+info;
+                }else{
+                    var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+head+"<br>"+info;
+                }
+
+                var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
+                marker.__index = i;
+                marker.title = title;
+                marker.html = cusCode;
+                marker.latLng = marker.getLatLng();
+                marker.info = info.replace("'","&#39;");
+                marker.on('click', sideDiv);
+
+                catLayers[i].addLayer(marker);
             }
-
-            var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-            marker.title = title;
-            marker.html = cusCode;
-            marker.latLng = marker.getLatLng();
-            marker.info = info.replace("'","&#39;");
-            marker.on('click', sideDiv);
-
-            catMarkers.addLayer(marker);
-        }
+            //catLayers[i].addTo(map);
+            //map.addLayer(catLayers[i]);
+        distCount = catData.length;
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='22px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
     }
-    map.addLayer(catMarkers);
-    
+
+ //updateMap(catMarkers,map);
+    //Show SideDive per marker
     function sideDiv(e){
 
         var title= this.title;
@@ -110,6 +118,30 @@ function loadMap() {
         titleDiv.onclick = function(e){map.setView(latLng, '20', {animation: true});};
 
         infoDiv.innerHTML = text;
+    }
+}
+
+function updateMap(catMarkers,map){
+    catMarkers.addTo(map);
+    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
+    console.log(catButtons.length);
+    console.log(catMarkers.getLayers().length);
+    
+    for(i=0; i < catButtons.length; i++){
+        
+        jQuery.grep(catMarkers,function(item, c){return(item.typeId == i && c > 1);});
+        var catButton = catButtons[i];
+        catButton.addEventListener('change', function(e){
+
+            if (e.target.unchecked){
+                console.log('not checked'+catButton.value);
+                catMarkers[i].clearLayers();
+                map.removeLayer(catMarkers[i]);
+            }else{
+                catMarkers[i].addTo(map);
+            }
+        });
+    
     }
 }
 
