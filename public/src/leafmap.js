@@ -45,10 +45,8 @@ function loadMap() {
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
     var catMarkers = [];
-    var checkbox;
     
     for(i = 0; i < markers.length; i++){
-
             
             var country     = markers[i].Country;
             var name        = markers[i].Name;
@@ -75,8 +73,7 @@ function loadMap() {
             catCluster.addLayer(marker);
             
         }
-        catCluster.addTo(map);
-    
+        catCluster.addTo(map);  
 
     geojson = L.geoJson(ITcurrentRegions).addTo(map);
     geojson = L.geoJson(EUcurrentCountries).addTo(map);
