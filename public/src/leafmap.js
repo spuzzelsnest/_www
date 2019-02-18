@@ -1,21 +1,17 @@
 function loadMap() {
 
-   // markers = jQuery.grep(markers,function(item, i){return(item.Verified == "1" && i > 1);});
+    //markers = jQuery.grep(markers,function(item, i){return(item.Country == 'Italy' && i > 1);});
 
     var iconType = {};
-    iconType['1'] = '/img/marker1.png';
-    iconType['2'] = '/img/marker2.png';
-    iconType['3'] = '/img/marker3.png';
+        iconType['0'] = '/img/marker1.png';
+        iconType['1'] = '/img/marker2.png';
+        iconType['2'] = '/img/marker3.png';
 
     var legName = {};
-    legName['1'] = 'Coffee Shops';
-    legName['2'] = 'CBD stores';
-    legName['3'] = 'Other';
+        legName['0'] = 'Coffee Shops';
+        legName['1'] = 'CBD stores';
+        legName['2'] = 'Other';
 
-    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
-    var titleDiv = document.getElementById('title');
-    var infoDiv = document.getElementById('markerInfo');
-    var cat = [];
     var map = L.map('map', {
         center:[46.5, 9],
         zoom: 5,
@@ -30,16 +26,13 @@ function loadMap() {
         }
     });
 
-    geojson = L.geoJson(ITcurrentRegions).addTo(map);
-    geojson = L.geoJson(EUcurrentCountries).addTo(map);
-
     var catCluster = L.markerClusterGroup({
 
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true,
         removeOutsideVisibleBounds:true,
-        maxClusterRadius: 20,
+        maxClusterRadius: 30,
         spiderLegPolylineOptions: {
             weight: 1.5,
             color: '#222',
@@ -47,22 +40,22 @@ function loadMap() {
         }
     });
 
-    for(i = 0; i < markers.length; i++){
-        if (cat.indexOf(markers[i].Icon) === -1){
-            cat.push(markers[i].Icon);
-        }
-    }
+    var c =0;
+    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
+    var titleDiv = document.getElementById('title');
+    var infoDiv = document.getElementById('markerInfo');
+    var catMarkers = [];
     
-    for(i = 0; i< cat.length; i++){
+    for(i = 0; i < markers.length; i++){
 
-        catMarkers = jQuery.grep(markers,function(item, c){return(item.Icon == cat[i] && c > 1);});
-        
-        distCount = catMarkers.length;
+        if (catMarkers.indexOf(markers[i].Icon) === -1){
+            
+            catMarkers.push(markers[i].Icon);
+            catMarkers = jQuery.grep(markers,function(item, b){return(item.Icon == c && b > 1);});
 
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='25px'> <input type='checkbox' class='leaflet-control-layers-selector' id='cat"+i+"' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
-        
-        var catButton = catButtons[i];
-        
+            c++
+        }
+
         for (m in catMarkers){
             
             var country     = catMarkers[m].Country;
@@ -90,10 +83,12 @@ function loadMap() {
             catCluster.addLayer(marker);
             
         }
-        console.log('Count Per '+catButton.value+ ' Category '+distCount);
-    catCluster.addTo(map);
+        catCluster.addTo(map);
     }
 
+    geojson = L.geoJson(ITcurrentRegions).addTo(map);
+    geojson = L.geoJson(EUcurrentCountries).addTo(map);
+    
     function sideDiv(e){
 
         var text= this.code;
@@ -141,28 +136,5 @@ function search(){
         }
         titleDiv.innerHTML += "Found: "+results.length+" results for "+term;
         
-    }
-}
-
-function update(catMarkers){
-
-    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
-    
-    for( i=0; i < catButtons.length; i++ ){
-        
-        var catButton = catButtons[i];
-        markers = jQuery.grep(markers,function(item, c){return(item.Icon == catButton.value && c > 1);});
-        
-        catButton.addEventListener('change', (e) =>{
-            map.removeLayer(catMarkers);
-            if (e.target.unchecked){
-                console.log('not checked'+catButton.value);
-                catMarkers.clearLayers();
-                map.removeLayer(catMarkers);
-            }else{
-                console.log('checked'+catButton.value);
-                catMarkers.addTo(map);
-            }
-        });
     }
 }
