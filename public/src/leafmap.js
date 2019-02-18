@@ -92,9 +92,7 @@ function loadMap() {
         infoDiv.innerHTML = text;
         infoDiv.innerHTML += "<p><button onclick='responsiveVoice.speak(`"+title+"`);'>Read Me</button>";
     }
-
 }
-
 function search(){
     
     var titleDiv = document.getElementById('title');
@@ -108,22 +106,19 @@ function search(){
     titleDiv.onmouseout = function(){return false;};
     
     if (term == ''){
-        titleDiv.innerHTML = "<h2><u>Search</u>";
-        infoDiv.innerHTML = "</h2><br>What are you looking for?";
+        titleDiv.innerHTML = "<h3><u>Search</u></h3>";
+        infoDiv.innerHTML = "<br>What are you looking for?";
     }else{
-        titleDiv.innerHTML = "<h1><u>Search</u></h1>";
+        titleDiv.innerHTML = "<h3><u>Search</u></h3>";
         infoDiv.innerHTML = "";
         for (m in markers) {
             name = JSON.stringify(markers[m].Name);
             if (name.match(regex)){
                 results.push(name);
 
-                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'><a href='#'>"+markers[m].Name+"</a> | <span class='text-muted'>"+markers[m].Address+"</span></li>";
-
-                document.getElementById(m).onclick = function(e){map.setView(markers[m].getLatLng(), '17', {animation: true});};
+                infoDiv.innerHTML += "<li id='"+m+"' class='list-group-item link-class'>"+markers[m].Name+" | <span class='text-muted'>"+markers[m].Address+"</span></li>";
             }
         }
         titleDiv.innerHTML += "Found: "+results.length+" results for "+term;
-        
     }
 }
