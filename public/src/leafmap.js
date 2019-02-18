@@ -45,31 +45,23 @@ function loadMap() {
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
     var catMarkers = [];
+    var checkbox;
     
     for(i = 0; i < markers.length; i++){
 
-        if (catMarkers.indexOf(markers[i].Icon) === -1){
             
-            catMarkers.push(markers[i].Icon);
-            catMarkers = jQuery.grep(markers,function(item, b){return(item.Icon == c && b > 1);});
-
-            c++
-        }
-
-        for (m in catMarkers){
-            
-            var country     = catMarkers[m].Country;
-            var name        = catMarkers[m].Name;
-            var address     = catMarkers[m].Address;
-            var zcode       = catMarkers[m].Zip_Code;
-            var city        = catMarkers[m].City;
-            var phone       = catMarkers[m].Phone;
-            var email       = catMarkers[m].Email;
-            var web         = catMarkers[m].Website;
-            var contact     = catMarkers[m].Contact;
-            var lat         = catMarkers[m].Lat;
-            var lng         = catMarkers[m].Lng;
-            var dif         = catMarkers[m].Icon;
+            var country     = markers[i].Country;
+            var name        = markers[i].Name;
+            var address     = markers[i].Address;
+            var zcode       = markers[i].Zip_Code;
+            var city        = markers[i].City;
+            var phone       = markers[i].Phone;
+            var email       = markers[i].Email;
+            var web         = markers[i].Website;
+            var contact     = markers[i].Contact;
+            var lat         = markers[i].Lat;
+            var lng         = markers[i].Lng;
+            var dif         = markers[i].Icon;
 
             var title       = name+" - "+city;
             var marker      = L.marker([lat, lng], {icon:  new LeafIcon({iconUrl:[iconType[dif]]})});
@@ -84,7 +76,7 @@ function loadMap() {
             
         }
         catCluster.addTo(map);
-    }
+    
 
     geojson = L.geoJson(ITcurrentRegions).addTo(map);
     geojson = L.geoJson(EUcurrentCountries).addTo(map);
