@@ -90,9 +90,9 @@ function loadMap() {
                 marker.info = info.replace("'","&#39;");
                 marker.on('click', sideDiv);
 
-                //catLayers[i].addLayer(marker);
+                catLayers[i].addLayer(marker);
             }
-            //catLayers[i].addTo(map);
+            catLayers[i].addTo(map);
             //map.addLayer(catLayers[i]);
         distCount = catData.length;
         document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='20px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
