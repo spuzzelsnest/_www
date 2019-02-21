@@ -26,7 +26,7 @@ function loadMap() {
     
         var LeafIcon = L.Icon.extend({
             options: {
-                    iconSize:[20, 22]
+                    iconSize:[20, 20]
             }
         });
    
@@ -95,7 +95,7 @@ function loadMap() {
             //catLayers[i].addTo(map);
             //map.addLayer(catLayers[i]);
         distCount = catData.length;
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='22px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
+        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='20px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
 
     }
 
@@ -165,9 +165,9 @@ function search(){
             if (info.match(regex)){
                 results.push(name);
 
-                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'><a href='#' onclick='fucntion(){map.setView(latLng("+markers[m].Lat+","+markers[m].Lng+"), 13, {animation: true});};'>"+markers[m].shortdesc+"</a> | <span class='text-muted'>"+markers[m].place+"</span></li>";
+                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'>"+markers[m].shortdesc+"</a> | <span class='text-muted'>"+markers[m].place+"</span></li>";
 
-                document.getElementById(m).onClick = function(e){map.setView(markers[m].getLatLng(), '13', {animation: true});}
+                document.getElementById(m).onClick = function(e){map.setView(latLng(markers[m].Lat,markers[m].Lng), '13', {animation: true});};
             }
         }
         titleDiv.innerHTML += "Found: "+results.length+" results for "+term;
