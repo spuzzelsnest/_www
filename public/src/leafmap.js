@@ -77,15 +77,15 @@ function loadMap() {
                 var title = place+" - "+date;
 
                 if (dif < 3){
-                    var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>";
+                    var custCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>";
                 }else{
-                    var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>";
+                    var custCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>";
                 }
 
                 var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
                 marker.__index = i;
                 marker.title = title;
-                marker.html = cusCode;
+                marker.custCode = custCode;
                 marker.latLng = marker.getLatLng();
                 marker.info = info.replace("'","&#39;");
                 marker.on('click', sideDiv);
@@ -104,7 +104,7 @@ function loadMap() {
     function sideDiv(e){
 
         var title= this.title;
-        var text= this.html;
+        var custCode= this.custCode;
         var info = this.info;
         var latLng = this.latLng;
 
@@ -118,7 +118,8 @@ function loadMap() {
         titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
         titleDiv.onclick = function(e){map.setView(latLng, '20', {animation: true});};
 
-        infoDiv.innerHTML = text;
+        infoDiv.innerHTML = custCode;
+        infoDiv.innerHTML += info;
     }
 }
 
