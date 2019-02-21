@@ -10,10 +10,10 @@ function loadMap() {
         iconType['4'] = '/img/XVideo.png';
 
      var legName = {};
-        legName['1'] = "Allied photo\'s";
-        legName['2'] = "Axis photo\'s";
-        legName['3'] = "Allied Video\'s";
-        legName['4'] = "Axis Video\'s";
+         legName['1'] = "Allied photo\'s";
+         legName['2'] = "Axis photo\'s";
+         legName['3'] = "Allied Video\'s";
+         legName['4'] = "Axis Video\'s";
     
     var map = L.map('map').setView([50.1, 6], 6);
     mapLink = '<a href="http://www.esri.com/">Esri</a>';
@@ -67,7 +67,7 @@ function loadMap() {
                 var lat     = catData[m].lat;
                 var lng     = catData[m].lng;
                 var dif     = catData[m].typeId;
-                var head   = catData[m].shortdesc;
+                var head    = catData[m].shortdesc;
                 var img     = catData[m].name;
                 var place   = catData[m].place;
                 var country = catData[m].country;
@@ -77,9 +77,9 @@ function loadMap() {
                 var title = place+" - "+date;
 
                 if (dif < 3){
-                    var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br><u><h3>"+head+"</h3></u><br>"+info;
+                    var cusCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>";
                 }else{
-                    var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>"+head+"<br>"+info;
+                    var cusCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>";
                 }
 
                 var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
@@ -90,12 +90,13 @@ function loadMap() {
                 marker.info = info.replace("'","&#39;");
                 marker.on('click', sideDiv);
 
-                catLayers[i].addLayer(marker);
+                //catLayers[i].addLayer(marker);
             }
             //catLayers[i].addTo(map);
             //map.addLayer(catLayers[i]);
         distCount = catData.length;
         document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='22px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
+
     }
 
  //updateMap(catMarkers,map);
@@ -141,21 +142,17 @@ function updateMap(catMarkers,map){
                 catMarkers[i].addTo(map);
             }
         });
-    
     }
 }
 
 function search(){
+    markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
     
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
     var regex = new RegExp( term, 'ig');
-    
-    titleDiv.onclick = function() {return false;};
-    titleDiv.onmouseover = function(){return false;};
-    titleDiv.onmouseout = function(){return false;};
     
     if (term == ''){
         titleDiv.innerHTML = "<h3><u>Search</u></h3>";
@@ -164,11 +161,11 @@ function search(){
         titleDiv.innerHTML = "<h3><u>Search</u></h3>";
         infoDiv.innerHTML = "";
         for (m in markers) {
-            name = JSON.stringify(markers[m].Name);
-            if (name.match(regex)){
+            info = JSON.stringify(markers[m].info);
+            if (info.match(regex)){
                 results.push(name);
 
-                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'><a href='#' onclick='fucntion(){map.setView(latLng("+markers[m].Lat+","+markers[m].Lng+"), 13, {animation: true});};'>"+markers[m].Name+"</a> | <span class='text-muted'>"+markers[m].Address+"</span></li>";
+                infoDiv.innerHTML += "<li id="+m+" class='list-group-item link-class'><a href='#' onclick='fucntion(){map.setView(latLng("+markers[m].Lat+","+markers[m].Lng+"), 13, {animation: true});};'>"+markers[m].shortdesc+"</a> | <span class='text-muted'>"+markers[m].place+"</span></li>";
 
                 document.getElementById(m).onClick = function(e){map.setView(markers[m].getLatLng(), '13', {animation: true});}
             }
