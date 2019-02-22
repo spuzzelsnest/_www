@@ -77,36 +77,62 @@ function loadMap() {
                 var title = place+" - "+date;
 
                 if (dif < 3){
-                    var custCode = "<p><center><img src='/images/" + img + ".jpg' alt='' width='350px'/></center><br>";
+                    var custCode = "<p><center><img src='/images/"+img+".jpg' alt='' width='350px'/></center><br>";
                 }else{
                     var custCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>";
                 }
 
                 var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-                marker.__index = i;
-                marker.title = title;
+                marker.__index  = i;
+                marker.title    = title;
                 marker.custCode = custCode;
-                marker.latLng = marker.getLatLng();
-                marker.info = info.replace("'","&#39;");
+                marker.latLng   = marker.getLatLng();
+                marker.info     = info.replace("'","&#39;");
                 marker.on('click', sideDiv);
 
                 catLayers[i].addLayer(marker);
             }
-            catLayers[i].addTo(map);
+            //catLayers[i].addTo(map);
             //map.addLayer(catLayers[i]);
-        distCount = catData.length;
-        document.getElementById('legenda').innerHTML += "<img src="+iconType[cat[i]]+" height='20px' width='20px'> <input type='checkbox' class='leaflet-control-layers-selector' name='typeId' value="+cat[i]+" checked/> "+distCount+" "+legName[cat[i]]+" · ";
+            distCount = catData.length;
+        
+            var icon            = document.createElement('img');
+                icon.src        = iconType[cat[i]];
+            
+            var checkbox        = document.createElement('input');
+                checkbox.type   = "checkbox";
+                checkbox.name   = "typeId";
+                checkbox.id     = cat[i];
+                checkbox.checked= true;
 
+            var label = document.createElement('label');
+                label.htmlFor = cat[i];
+                label.appendChild(document.createTextNode(" "+distCount +" "+legName[cat[i]]+" · "));
+            
+            legenda.appendChild(icon);
+            legenda.appendChild(checkbox);
+            legenda.appendChild(label);
+       
+            checkbox.addEventListener('change', function(e){ 
+                if (checkbox.checked != true){
+                    alert("Not Checked "+legName[cat[i]] );
+                }
+            });
     }
+
+    
+            $('#slct input[type=checkbox]').change(function(){ 
+alert("See it's working");
+});
 
  //updateMap(catMarkers,map);
     //Show SideDive per marker
     function sideDiv(e){
 
-        var title= this.title;
-        var custCode= this.custCode;
-        var info = this.info;
-        var latLng = this.latLng;
+        var title       = this.title;
+        var custCode    = this.custCode;
+        var info        = this.info;
+        var latLng      = this.latLng;
 
         titleDiv.innerHTML = "<h3><u>"+title+"</u></h3>";
         if (info !== ''){
@@ -114,9 +140,9 @@ function loadMap() {
         }else{
             document.getElementById('speakButton').innerHTML = "";
         }
-        titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
-        titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
-        titleDiv.onclick = function(e){map.setView(latLng, '20', {animation: true});};
+        titleDiv.onmouseover    = function(){titleDiv.style.color = '#428608';};
+        titleDiv.onmouseout     = function(){titleDiv.style.color = 'Black';};
+        titleDiv.onclick        = function(e){map.setView(latLng, '13', {animation: true});};
 
         infoDiv.innerHTML = custCode;
         infoDiv.innerHTML += info;
