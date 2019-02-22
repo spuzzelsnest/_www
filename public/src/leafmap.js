@@ -95,27 +95,28 @@ function loadMap() {
             //catLayers[i].addTo(map);
             //map.addLayer(catLayers[i]);
             distCount = catData.length;
-        
             var icon            = document.createElement('img');
                 icon.src        = iconType[cat[i]];
             
             var checkbox        = document.createElement('input');
                 checkbox.type   = "checkbox";
-                checkbox.name   = "typeId";
+                checkbox.name   = "name";
+                checkbox.value  = "value";
                 checkbox.id     = cat[i];
-                checkbox.checked= true;
+                
 
-            var label = document.createElement('label');
-                label.htmlFor = cat[i];
+            var label = document.createElement('label')
+                label.htmlFor = "id";
                 label.appendChild(document.createTextNode(" "+distCount +" "+legName[cat[i]]+" · "));
             
-            legenda.appendChild(icon);
             legenda.appendChild(checkbox);
+            legenda.appendChild(icon);
             legenda.appendChild(label);
        
             checkbox.addEventListener('change', function(e){ 
+                var id = this.id;
                 if (checkbox.checked != true){
-                    alert("Not Checked "+legName[cat[i]] );
+                    alert("Not Checked "+legName[id] );
                 }
             });
     }
