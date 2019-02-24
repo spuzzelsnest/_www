@@ -100,10 +100,9 @@ function loadMap() {
             
             var checkbox        = document.createElement('input');
                 checkbox.type   = "checkbox";
-                checkbox.name   = "name";
-                checkbox.value  = "value";
+                checkbox.name   = "typeId";
                 checkbox.id     = cat[i];
-                
+               
 
             var label = document.createElement('label')
                 label.htmlFor = "id";
@@ -116,17 +115,13 @@ function loadMap() {
             checkbox.addEventListener('change', function(e){ 
                 var id = this.id;
                 if (checkbox.checked != true){
-                    alert("Not Checked "+legName[id] );
+                    alert("Check Changed "+legName[id] );
+                    map.addLayer(catLayers[id]);
                 }
             });
     }
 
-    
-            $('#slct input[type=checkbox]').change(function(){ 
-alert("See it's working");
-});
-
- //updateMap(catMarkers,map);
+    //updateMap(catMarkers,map);
     //Show SideDive per marker
     function sideDiv(e){
 
