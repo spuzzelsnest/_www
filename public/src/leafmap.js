@@ -4,16 +4,16 @@ function loadMap() {
     markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
 
     var iconType = {};
-        iconType['1'] = '/img/Afoto.png';
-        iconType['2'] = '/img/Xfoto.png';
-        iconType['3'] = '/img/Avideo.png';
-        iconType['4'] = '/img/XVideo.png';
+        iconType['0'] = '/img/Afoto.png';
+        iconType['1'] = '/img/Xfoto.png';
+        iconType['2'] = '/img/Avideo.png';
+        iconType['3'] = '/img/XVideo.png';
 
      var legName = {};
-         legName['1'] = "Allied photo\'s";
-         legName['2'] = "Axis photo\'s";
-         legName['3'] = "Allied Video\'s";
-         legName['4'] = "Axis Video\'s";
+         legName['0'] = "Allied photo\'s";
+         legName['1'] = "Axis photo\'s";
+         legName['2'] = "Allied Video\'s";
+         legName['3'] = "Axis Video\'s";
     
     var map = L.map('map').setView([50.1, 6], 6);
     mapLink = '<a href="http://www.esri.com/">Esri</a>';
@@ -36,7 +36,7 @@ function loadMap() {
 		showCoverageOnHover: false,
 		zoomToBoundsOnClick: true,
 		removeOutsideVisibleBounds:true,
-		maxClusterRadius: 20,
+		maxClusterRadius: 45,
 		spiderLegPolylineOptions: {
 				weight: 1.5,
 				color: '#222',
@@ -61,7 +61,19 @@ function loadMap() {
 
         catData = jQuery.grep(markers,function(item, c){return(item.typeId == cat[i] && c > 1);});
 
-        catLayers[i] = new L.markerClusterGroup();
+        catLayers[i] =  L.markerClusterGroup({
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            removeOutsideVisibleBounds:true,
+            maxClusterRadius: 45,
+            spiderLegPolylineOptions: {
+                    weight: 1.5,
+                    color: '#222',
+                    opacity: 0.5
+            }
+        });
+        
         for(m in catData){
 
                 var lat     = catData[m].lat;
@@ -82,8 +94,8 @@ function loadMap() {
                     var custCode = "<p>    <center><video id=\""+img+"\" poster=\"media/"+img+"/"+img+".jpg\" width=\"480\" height=\"360\" controls=\"autoplay\"><source src=\"media/"+img+"/"+img+".mp4\" type=\"video/mp4\"><source src=\"media/"+img+"/"+img+".ogg\" type=\"video/ogg\"></center><br>";
                 }
 
-                var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[dif]]})});
-                marker.__index  = i;
+                var marker = L.marker([lat, lng], {icon:   new LeafIcon({iconUrl:[iconType[i]]})});
+   
                 marker.title    = title;
                 marker.custCode = custCode;
                 marker.latLng   = marker.getLatLng();
@@ -92,21 +104,23 @@ function loadMap() {
 
                 catLayers[i].addLayer(marker);
             }
-            //catLayers[i].addTo(map);
-            //map.addLayer(catLayers[i]);
+            catLayers[i].addTo(map);
             distCount = catData.length;
             var icon            = document.createElement('img');
-                icon.src        = iconType[cat[i]];
+                icon.width      = 20;
+                icon.height     = 20;
+                icon.src        = iconType[i];
             
             var checkbox        = document.createElement('input');
-                checkbox.type   = "checkbox";
-                checkbox.name   = "typeId";
-                checkbox.id     = cat[i];
+                checkbox.type   = 'checkbox';
+                checkbox.name   = 'typeId';
+                checkbox.id     = i;
+                checkbox.checked= true;
                
 
             var label = document.createElement('label')
-                label.htmlFor = "id";
-                label.appendChild(document.createTextNode(" "+distCount +" "+legName[cat[i]]+" · "));
+                label.htmlFor = i;
+                label.appendChild(document.createTextNode(" "+distCount +" "+legName[i]+" · "));
             
             legenda.appendChild(checkbox);
             legenda.appendChild(icon);
@@ -114,14 +128,15 @@ function loadMap() {
        
             checkbox.addEventListener('change', function(e){ 
                 var id = this.id;
-                if (checkbox.checked != true){
-                    alert("Check Changed "+legName[id] );
+                 console.log (id);
+                if (map.hasLayer(catLayers[id])) {
+                    map.removeLayer(catLayers[id]);
+                } else {
                     map.addLayer(catLayers[id]);
                 }
             });
     }
 
-    //updateMap(catMarkers,map);
     //Show SideDive per marker
     function sideDiv(e){
 
@@ -142,29 +157,6 @@ function loadMap() {
 
         infoDiv.innerHTML = custCode;
         infoDiv.innerHTML += info;
-    }
-}
-
-function updateMap(catMarkers,map){
-    catMarkers.addTo(map);
-    var catButtons = document.getElementById('legenda').getElementsByTagName('input');
-    console.log(catButtons.length);
-    console.log(catMarkers.getLayers().length);
-    
-    for(i=0; i < catButtons.length; i++){
-        
-        jQuery.grep(catMarkers,function(item, c){return(item.typeId == i && c > 1);});
-        var catButton = catButtons[i];
-        catButton.addEventListener('change', function(e){
-
-            if (e.target.unchecked){
-                console.log('not checked'+catButton.value);
-                catMarkers[i].clearLayers();
-                map.removeLayer(catMarkers[i]);
-            }else{
-                catMarkers[i].addTo(map);
-            }
-        });
     }
 }
 
