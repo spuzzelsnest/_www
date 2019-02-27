@@ -1,6 +1,6 @@
 function loadMap() {
 
-    //markers = jQuery.grep(markers,function(item, i){return(item.Country == 'Italy' && i > 1);});
+    markers = jQuery.grep(markers,function(item, i){return(item.Verified == '1' && i > 1);});
 
     var iconType        = {};
         iconType['0']   = '/img/marker1.png';
@@ -27,12 +27,13 @@ function loadMap() {
     });
 
     var catLayers = L.markerClusterGroup({
-
+        animateAddingMarkers: true,
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true,
+        disableClusteringAtZoom: 7,
         removeOutsideVisibleBounds:true,
-        maxClusterRadius: 30,
+        maxClusterRadius: 80,
         spiderLegPolylineOptions: {
             weight: 1.5,
             color: '#222',
@@ -57,7 +58,20 @@ function loadMap() {
     
         catData = jQuery.grep(markers,function(item, c){return(item.Icon == cat[i] && c > 1);});
 
-        catLayers[i] = new L.markerClusterGroup();
+        catLayers[i] = new L.markerClusterGroup({
+            animateAddingMarkers: true,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            disableClusteringAtZoom: 7,
+            removeOutsideVisibleBounds:true,
+            maxClusterRadius: 80,
+            spiderLegPolylineOptions: {
+                weight: 1.5,
+                color: '#222',
+                opacity: 0.5
+            }
+    });
         for(m in catData){
             
             var lat         = catData[m].Lat;
@@ -74,8 +88,8 @@ function loadMap() {
             var contact     = catData[m].Contact;
 
             var title       = name+" - "+city;
-            var marker      = L.marker([lat, lng], {icon:  new LeafIcon({iconUrl:[iconType[dif]]})});
-            var code        = "<center><br>"+ address;
+            var marker      = L.marker([lat, lng], {icon:  new LeafIcon({iconUrl:[iconType[i]]})});
+            var code        = "<center><br>"+address+"</center>";
 
             marker.code     = code;
             marker.latLng   = marker.getLatLng();
