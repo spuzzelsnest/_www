@@ -1,13 +1,12 @@
 @charset "utf-8";
 html, body{
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
   height: 100%;
   width: 100%;
 }
 
 .split {
-  z-index: 1;
-  top: 15%;
+  z-index: 2;
+  top: 80px;
   width: 30%;
   position: fixed;
 }
@@ -19,7 +18,7 @@ html, body{
   background-color: rgba(255,255,255,0.66);
   padding: 1%;
   top: 19px;
-  left: 5%;
+  left: 58px;
   right: 32px;
   height: 59px;
   text-align: center;
@@ -33,14 +32,6 @@ html, body{
     position: fixed;
     right: 15%;
     top: 33px;
-}
-
-#header{
-  z-index: 2;
-  background-color: rgba(255,255,255,0.66);
-  font-size: 12px;
-  position: fixed;
-  left: 10%;
 }
 
 .right {
@@ -62,12 +53,14 @@ html, body{
   padding-top: 12px;
   padding-left: 12px;
   padding-right:12px;
-  position: fixed;
+  text-align: center;
   width: 38%;
-  height: 67.8%;
-  right:  2.5%;
+  right:  32px;
   overflow: auto;
+  position: fixed;
+
 }
+
 #itemList{
   z-index: 3;
   background-color: rgba(255,255,255,0.66);
