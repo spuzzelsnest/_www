@@ -8,7 +8,7 @@
     <!--[if IE]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-  <link rel="stylesheet" type="text/css" href="/main.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -18,8 +18,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
   <script type="text/javascript" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
 
-  <link rel="stylesheet" type="text/css" href="/Markercluster.css" />
-  <link rel="stylesheet" type="text/css" href="/Markercluster.default.css" /> 
+  <link rel="stylesheet" type="text/css" href="/css/Markercluster.css" />
+  <link rel="stylesheet" type="text/css" href="/css/Markercluster.default.css" /> 
   <script type="text/javascript" src="/src/leaflet.markercluster-src.js"></script>
   
   <script type="text/javascript" src="/data/ITcurrentRegions.js"></script>
@@ -27,22 +27,23 @@
   <script type="text/javascript" src="/data/markers.json"></script>
 </head>
   <body onload="loadMap()">
+
+<div id='map'></div>
+
 <div>
       <u><big>PoI Map</big></u>
     </div>
     <div id="header">
-	    <caption> POI Map running on node JS server with Leaflet API, Responsive Voice, Search.
+	    <caption> POI Map running on node JS server with Leaflet API, Search.
         </caption>
         <div id="legenda"></div>
       </div>
       <div id="search"><input placeholder="Search for a name" type=text class="searchField"/> <button onclick="search()">Search</button></div>
     <p>
-<div class="split left">
- 	<div id='map'></div>
-</div>
+
 <div class="split right">
-	<div id="title">Click or Scroll in the Map to see the information of the markers.</div>
 	<div id='markerInfo'>
+	<div id="title">Click or Scroll in the Map to see the information of the markers.</div>
         <div id='listItem'></div>
         <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 	</div>

@@ -3,36 +3,38 @@ html, body{
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   height: 100%;
   width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-body{
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  padding-top: 1%;
-  padding-left: 1%;
-  color: #333:
 }
 
 .split {
   z-index: 1;
   top: 15%;
-  height: 100%;
   width: 30%;
   position: fixed;
 }
+
 #legenda{
-    border: 6px solid #D7D7D7;
-    text-align: center;
+  z-index: 2;
+  border-radius: 25px;
+  border: 4px solid #34504a;
+  background-color: rgba(255,255,255,0.66);
+  padding: 1%;
+  top: 19px;
+  left: 5%;
+  right: 32px;
+  height: 59px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  position: fixed;
 }
+
 #search{
     z-index: 2;
     position: fixed;
     right: 15%;
-    top: 5%;
+    top: 33px;
 }
+
 #header{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);
@@ -40,27 +42,26 @@ body{
   position: fixed;
   left: 10%;
 }
-.left {
-  left: 0;
-}
 
 .right {
   right: 0;
 }
 
 #map{
-  border: 6px solid #D7D7D7;
+  border: 10px solid #D7D7D7;
   position: fixed;
-  height: 79%;
-  width: 55%;
-  left: 2.5%;
+  height: 100%;
+  width: 100%;
 }
 
 #markerInfo{
   z-index: 3;
+  border-radius: 25px;
+  border: 4px solid #34504a;
   background-color: rgba(255,255,255,0.66);
   padding-top: 12px;
   padding-left: 12px;
+  padding-right:12px;
   position: fixed;
   width: 38%;
   height: 67.8%;
