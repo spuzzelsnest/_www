@@ -1,6 +1,7 @@
 function loadMap() {
 
-    markers = jQuery.grep(markers,function(item, i){return(item.Verified == '1' && i > 1);});
+   // markers = jQuery.grep(markers,function(item, i){return(item.Verified == '1' && i > 1);});
+
 
     var iconType        = {};
         iconType['0']   = '/img/marker1.png';
@@ -43,19 +44,19 @@ function loadMap() {
 
     var c =0;
     var catButtons = document.getElementById('legenda').getElementsByTagName('input');
-    var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
+    var titleDiv = document.getElementById('title');
     var cat = [];
-    
+
     for(i = 0; i< markers.length; i++){
         if(cat.indexOf(markers[i].Icon) === -1){
             cat.push(markers[i].Icon);
         }
     }
-    
+
     //loop through Categories
     for(i = 0; i< cat.length; i++){
-    
+
         catData = jQuery.grep(markers,function(item, c){return(item.Icon == cat[i] && c > 1);});
 
         catLayers[i] = new L.markerClusterGroup({
@@ -73,7 +74,7 @@ function loadMap() {
             }
     });
         for(m in catData){
-            
+
             var lat         = catData[m].Lat;
             var lng         = catData[m].Lng;
             var dif         = catData[m].Icon;
@@ -87,9 +88,9 @@ function loadMap() {
             var web         = catData[m].Website;
             var contact     = catData[m].Contact;
 
-            var title       = name+" - "+city;
+            var title       = name+" - "+city;;
             var marker      = L.marker([lat, lng], {icon:  new LeafIcon({iconUrl:[iconType[i]]})});
-            var code        = "<center><br>"+address+"</center>";
+            var code        = contact+"<br>"+address+" "+zcode+"<br>"+phone+"<br>"+email+"<br>"+web;
 
             marker.code     = code;
             marker.latLng   = marker.getLatLng();
@@ -97,32 +98,29 @@ function loadMap() {
             marker.on('click', sideDiv);
 
             catLayers[i].addLayer(marker);
-            
-            console.log("cat "+ i);
-            
+
         }
         catLayers[i].addTo(map);
+
             distCount           = catData.length;
             var icon            = document.createElement('img');
                 icon.width      = 20;
                 icon.height     = 20;
                 icon.src        = iconType[i];
-            
             var checkbox        = document.createElement('input');
                 checkbox.type   = "checkbox";
                 checkbox.name   = "typeId";
                 checkbox.id     = i;
                 checkbox.checked= true;
-               
             var label = document.createElement('label')
                 label.htmlFor = "id";
                 label.appendChild(document.createTextNode(" "+distCount +" "+legName[i]+" · "));
-    
+
             legenda.appendChild(checkbox);
             legenda.appendChild(icon);
             legenda.appendChild(label);
 
-            checkbox.addEventListener('change', function(e){ 
+            checkbox.addEventListener('change', function(e){
                 var id = this.id;
                  console.log (id);
                 if (map.hasLayer(catLayers[id])) {
@@ -131,7 +129,7 @@ function loadMap() {
                     map.addLayer(catLayers[id]);
                 }
         });
-    
+
     geojson = L.geoJson(ITcurrentRegions).addTo(map);
     geojson = L.geoJson(EUcurrentCountries).addTo(map);
 }
@@ -147,22 +145,22 @@ function loadMap() {
         titleDiv.onclick = function(e){map.setView(latLng, '17', {animation: true});};
 
         infoDiv.innerHTML = text;
-        infoDiv.innerHTML += "<p><button onclick='responsiveVoice.speak(`"+title+"`);'>Read Me</button>";
+
     }
 }
 
 function search(){
-    
+
     var titleDiv = document.getElementById('title');
     var infoDiv = document.getElementById('markerInfo');
     var results =[];
     var term = document.getElementsByClassName('searchField')[0].value;
     var regex = new RegExp( term, 'ig');
-    
+
     titleDiv.onclick = function() {return false;};
     titleDiv.onmouseover = function(){return false;};
     titleDiv.onmouseout = function(){return false;};
-    
+
     if (term == ''){
         titleDiv.innerHTML = "<h3><u>Search</u></h3>";
         infoDiv.innerHTML = "<br>What are you looking for?";
