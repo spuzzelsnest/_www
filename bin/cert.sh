@@ -9,3 +9,5 @@ openssl x509 -req -days 365 -in ../cert/https.csr -signkey ../cert/https.key -ou
 
 chmod 755 ../cert
 chmod 700 ../cert/*.key
+
+sudo chown $USER:www-data -R ../*
