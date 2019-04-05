@@ -13,7 +13,7 @@ function loadMap() {
         legName['2']    = 'Other';
 
     var map = L.map('map', {
-        center:[46.5, 9],
+        center:[46.5, 20],
         zoom: 5,
         layers: catLayers
     });
