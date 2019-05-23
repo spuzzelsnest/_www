@@ -4,10 +4,10 @@ function loadMap() {
     markers = jQuery.grep(markers,function(item, i){return(item.published == "1" && i > 1);});
 
     var iconType = {};
-        iconType['0'] = '/img/Afoto.png';
-        iconType['1'] = '/img/Xfoto.png';
-        iconType['2'] = '/img/Avideo.png';
-        iconType['3'] = '/img/XVideo.png';
+        iconType['0'] = '/img/marker1.png';
+        iconType['1'] = '/img/marker2.png';
+        iconType['2'] = '/img/marker3.png';
+        iconType['3'] = '/img/marker4.png';
 
      var legName = {};
          legName['0'] = "Allied photo\'s";
