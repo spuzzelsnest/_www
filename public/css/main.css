@@ -1,97 +1,80 @@
 @charset "utf-8";
 html, body{
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
   height: 100%;
   width: 100%;
-  padding: 0;
-  margin: 0;
 }
 
-body{
-  background-image: url("../img/bg.jpg");
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  padding-top: 1%;
-  padding-left: 1%;
-  color: #333:
-}
-
-#head-title{
+.split {
   z-index: 2;
-  font-size: 26px;
-  text-align: center;
+  top: 80px;
+  width: 30%;
   position: fixed;
-  top:0.2%;
-  left: 10%;
-  right: 10%;
-}
-#search{
-    z-index: 2;
-    position: fixed;
-    right: 5%;
-    top: 2%;
 }
 
 #legenda{
   z-index: 2;
+  border-radius: 25px;
+  border: 4px solid #34504a;
   background-color: rgba(255,255,255,0.66);
-  padding: 5px;
-  position: fixed;
-  top: 8%;
-  left: 2.5%;
-  right: 2.5%;
-  display: block;
+  padding: 1%;
+  top: 19px;
+  left: 58px;
+  right: 32px;
+  height: 59px;
   text-align: center;
   font-weight: bold;
-  color: black;      
-}
-.split {
-  z-index: 1;
-  top: 15%;
-  height: 100%;
-  width: 30%;
+  color: black;
   position: fixed;
 }
-.left {
-  left: 0;
+
+#search{
+    z-index: 2;
+    position: fixed;
+    right: 15%;
+    top: 33px;
 }
+
 .right {
   right: 0;
 }
+
 #map{
-  border: 6px solid #D7D7D7;
+  border: 10px solid #D7D7D7;
   position: fixed;
-  height: 79%;
-  width: 55%;
-  left: 2.5%;
+  height: 100%;
+  width: 100%;
 }
+
 #infoDiv{
   z-index: 3;
-  font-size: 12px;
+  border-radius: 25px;
+  border: 4px solid #34504a;
   background-color: rgba(255,255,255,0.66);
-  padding-top: 12px;
-  padding-left: 12px;
-  position: fixed;
+  padding 12px,12px,12px,12px;
+  text-align: center;
   width: 38%;
-  height: 79%;
-  right:  2.5%;
+  right:  32px;
   overflow: auto;
-}
-#speakButton{
-  z-index:4;
-  font-size: 11px;
   position: fixed;
-  right: 5%;
+}
+
+#itemList{
+  z-index: 3;
+  background-color: rgba(255,255,255,0.66);
 }
 
 #footer{
   z-index: 2;
   background-color: rgba(255,255,255,0.66);
-  font-size: 9px;
-  text-align: center;
+  font-size: 8px;
   position: fixed;
-  left: 10%;
-  right: 10%;
-  bottom: 1%;
+  left: 20%;
+  bottom: 10%;
+}
+
+#speakButton{
+  z-index:4;
+  font-size: 11px;
+  position: fixed;
+  right: 5%;
 }
