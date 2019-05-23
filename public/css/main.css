@@ -27,11 +27,12 @@ html, body{
   position: fixed;
 }
 
-#search{
+#search {
     z-index: 2;
     position: fixed;
-    right: 15%;
-    top: 33px;
+    font-size: 10px;
+    right: 5%;
+    top: 52px;
 }
 
 .right {
