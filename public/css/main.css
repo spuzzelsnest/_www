@@ -58,6 +58,13 @@ html, body{
   position: fixed;
 }
 
+#speakButton{
+  z-index:4;
+  font-size: 11px;
+  position: fixed;
+  right: 5%;
+}
+
 #itemList{
   z-index: 3;
   background-color: rgba(255,255,255,0.66);
@@ -69,12 +76,5 @@ html, body{
   font-size: 8px;
   position: fixed;
   left: 20%;
-  bottom: 10%;
-}
-
-#speakButton{
-  z-index:4;
-  font-size: 11px;
-  position: fixed;
-  right: 5%;
+  bottom: 5%;
 }
