@@ -9,7 +9,7 @@ Added a rework of a Google maps POI website as an example, this time based on th
 
 - run bin/cert.sh to create the HTTPS certificates
 ```
-  cd bin && ./cert.sh
+  cd bin && ./install.sh
 ```
 - Set the secret for the certifications (also in server.js)
 
