@@ -1,13 +1,14 @@
-#!/usr/bin/env nodejs
+#!/usr/bin/env node
 
 const 	path = require('path'),
 	https = require('https'),
 	fs = require('fs'),
 	url = require('url');
+    port = process.argv[2] || 1944;
 
-var dir = path.join(__dirname, 'public');
+const dir = path.join(__dirname, 'public');
 
-var mime = {
+const mime = {
 	html: 'text/html',
 	txt: 'text/plain',
 	css: 'text/css',
@@ -27,7 +28,8 @@ const options ={
 	passphrase: 'secret'
 };
 
-var server = https.createServer(options, (req, res) => {
+const server = https.createServer(options, (req, res) => {
+    
 	var reqpath =req.url.toString().split('?')[0];
 	if(req.method !== 'GET') {
 		res.satusCode = 501;
@@ -55,4 +57,4 @@ var server = https.createServer(options, (req, res) => {
 	});
 
 });
-server.listen(1944, "0.0.0.0");
+server.listen(port, "0.0.0.0");
