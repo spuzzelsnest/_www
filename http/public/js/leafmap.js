@@ -12,14 +12,19 @@ function loadMap() {
         legName['1']    = 'CBD stores';
         legName['2']    = 'Other';
 
-    var map = L.map('map', {
-        center:[46.5, 10],
-        zoom: 4,
-        layers: catLayers
-    });
+    var map = L.map('map').setView([46.5, 10], 4,catLayers);
+    lableLink = '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+    L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+            attribution: '&copy;',
+            maxZoom: 18,
+            }).addTo(map);
 
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png',{
+	    id: 'cartodb_labels',
+	    attribution: '&copy; '+lableLink
+            }).addTo(map);
+    
     var LeafIcon = L.Icon.extend({
         options: {
             iconSize:[20, 25]
@@ -138,13 +143,10 @@ function loadMap() {
         var title = this.title;
         var latLng = this.latLng;
         titleDiv.innerHTML = "<h3><u>"+title+"</u></h3>";
-
         titleDiv.onmouseover = function(){titleDiv.style.color = '#428608';};
         titleDiv.onmouseout = function(){titleDiv.style.color = 'Black';};
         titleDiv.onclick = function(e){map.setView(latLng, '17', {animation: true});};
-
         infoDiv.innerHTML = text;
-
     }
 }
 

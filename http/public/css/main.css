@@ -2,12 +2,21 @@
 html, body{
   height: 100%;
   width: 100%;
+  background-image: url("/img/bg.jpg");
+}
+h3{
+color: white;
+}
+#map{
+  z-index: 1;
+  height: 80%;
+  min-height: 350px;
 }
 
-#map{
-    z-index: 1;
-  border: 10px solid #D7D7D7;
-  height: 450px;
+#legenda{
+  text-align: center;
+  font-weight: bold;
+  color: white;
 }
 
 #infoDiv{
@@ -17,11 +26,11 @@ html, body{
   background-color: rgba(255,255,255,0.66);
   padding 12px,12px,12px,12px;
   text-align: center;
+  top: 14px;
   width: 38%;
-  right:  32px;
+  left: 40%;
   overflow: auto;
   position: fixed;
-
 }
 
 #itemList{
@@ -40,13 +49,12 @@ html, body{
 /* Set gray background color and 100% height */
 .sidenav {
   padding-top: 20px;
-  background-color: #f1f1f1;
   height: 100%;
 }
 
 /* Set black background color, white text and some padding */
 footer {
-  background-color: #555;
+  background-color: #212529;
   color: white;
   padding: 15px;
 }
