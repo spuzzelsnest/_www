@@ -2,7 +2,6 @@ function loadMap() {
 
    // markers = jQuery.grep(markers,function(item, i){return(item.Verified == '1' && i > 1);});
 
-
     var iconType        = {};
         iconType['0']   = '/img/marker1.png';
         iconType['1']   = '/img/marker2.png';
@@ -14,8 +13,8 @@ function loadMap() {
         legName['2']    = 'Other';
 
     var map = L.map('map', {
-        center:[46.5, 20],
-        zoom: 5,
+        center:[46.5, 10],
+        zoom: 4,
         layers: catLayers
     });
 
