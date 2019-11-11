@@ -51,7 +51,10 @@ color: white;
   padding-top: 20px;
   height: 100%;
 }
-
+.card {
+    margin: auto;
+    padding-bottom: 3%;
+}
 /* Set black background color, white text and some padding */
 footer {
   background-color: #212529;
