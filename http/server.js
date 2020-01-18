@@ -4,9 +4,17 @@ const http = require('http'),
       url = require('url'),
       fs = require('fs'),
       path = require('path'),
-      port = process.argv[2] || 1944,
       root = path.join(__dirname, 'public'),
       images = 'public/images/';
+      cors = require('cors'),
+      port = process.argv[2] || 1944;
+
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+    'Access-Control-Max-Age': 2592000, // 30 days
+    /** add other headers as per requirement */
+  };
 
 const mime = {
 	html: 'text/html',

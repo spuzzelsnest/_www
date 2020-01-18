@@ -1,10 +1,10 @@
-cert/
-node_modules/
-public/data/
-public/img/
-public/images/
-public/media/
-package-lock.json
+https/bin/cert/
+
+http*/public/data/
+http*/public/img/
+http*/public/images/
+http*/public/media/
+
 
 *.DS_Store
 .git*
