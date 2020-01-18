@@ -7,7 +7,9 @@ function loadPics(){
                             if( val.match(/\.(jpe?g|png|gif)$/) ) { 
                                 $("body").append( "<img src='"+ folder + val +"'>" );
                             console.log(data);
-                            } 
+                            } else {
+                                $("body").append("<h3>No Images</h3>");
+                            }
                         });
                     }
   });

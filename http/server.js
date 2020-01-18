@@ -4,9 +4,9 @@ const http = require('http'),
       url = require('url'),
       fs = require('fs'),
       path = require('path'),
-      port = process.argv[2] || 1944;
-
-const root = path.join(__dirname, 'public');
+      port = process.argv[2] || 1944,
+      root = path.join(__dirname, 'public'),
+      images = 'public/images/';
 
 const mime = {
 	html: 'text/html',
@@ -23,10 +23,12 @@ const mime = {
 	hta: 'application/hta'
 };
 
+const data = fs.readdirSync(images);
+
 
 const server = http.createServer((req, res) => {
     //  console.log(`${req.method} ${req.url}`);
-	
+    
     var reqpath =req.url.toString().split('?')[0];
 	if(req.method !== 'GET') {
 		res.satusCode = 501;
