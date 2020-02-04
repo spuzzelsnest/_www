@@ -1,0 +1,15 @@
+{
+  "name": "_www",
+  "version": "0.0.0",
+  "description": "local webserver",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/spuzzelsnest/_www.git"
+  },
+  "author": "spuzzelsnest",
+  "license": "ISC"
+}
